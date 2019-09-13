@@ -1,0 +1,29 @@
+{
+  "name": "project3",
+  "version": "1.0.0",
+  "description": "Trello: https://trello.com/b/ytqO6Bdy/tattoobr",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.7.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KHilse/project3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KHilse/project3/issues"
+  },
+  "homepage": "https://github.com/KHilse/project3#readme"
+}
