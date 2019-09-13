@@ -8,6 +8,6 @@ const router = express_1.default.Router();
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 router.get('/', (req, res) => {
-    res.send('Hello from the API');
+    res.send({ message: 'Hello from the API' });
 });
 exports.default = router;
