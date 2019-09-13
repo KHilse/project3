@@ -1,8 +1,8 @@
-require("dotenv");
-require('cors');
-let express = require("express");
+import dotenv from "dotenv";
+dotenv.config();
+import cors from 'cors';
+import express from 'express';
 let app = express();
-//let db = require("./models");
 
 
 // DB Models
@@ -10,11 +10,12 @@ let app = express();
 
 // Middleware
 app.use(express.urlencoded({ extended: false}));
-app.use(express.json({ limit: '50mb ' }));
+app.use(express.json({ limit: '10mb ' }));
 app.use(cors());
 
 // Controllers
-app.use("/v1/users", require("./controllers/v1/users"));
+import users from "./controllers/v1/users";
+app.use("/v1/users", users);
 
 
 // 404 Catch-all route
