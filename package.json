@@ -2,18 +2,29 @@
   "name": "project3",
   "version": "1.0.0",
   "description": "Trello: https://trello.com/b/ytqO6Bdy/tattoobr",
-  "main": "index.js",
+  "main": "build/index.js",
   "dependencies": {
     "@material-ui/core": "^4.4.2",
     "axios": "^0.19.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.0",
     "moment": "^2.24.0",
     "mongoose": "^5.7.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/cors": "^2.8.6",
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^4.17.1",
+    "@types/moment": "^2.13.0",
+    "@types/mongoose": "^5.5.17",
+    "@types/node": "^12.7.5",
+    "typescript": "^3.6.3"
+  },
   "scripts": {
+    "start": "tsc && node build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
