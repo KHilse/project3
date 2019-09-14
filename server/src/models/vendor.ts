@@ -1,5 +1,5 @@
 import { Document, Schema, Model, model } from "mongoose";
-import { Address, IAddressModel } from "./address";
+import { AddressSchema, IAddressModel } from "./address";
 
 export interface IVendorModel extends Document {
   address: IAddressModel,
@@ -8,7 +8,7 @@ export interface IVendorModel extends Document {
 }
 
 export const VendorSchema: Schema = new Schema({
-  address: Address,
+  address: AddressSchema,
   phoneNumber: String,
   website: String,
 });

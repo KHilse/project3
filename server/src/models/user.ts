@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import { Document, Schema, Model, model } from "mongoose";
-import { Vendor, IVendorModel } from "./vendor";
+import { VendorSchema, IVendorModel } from "./vendor";
 
 export interface IUserModel extends Document {
   email: string,
@@ -36,16 +36,14 @@ export const UserSchema = new Schema({
     required: true,
     type: String,
   },
-  vendor: Vendor,
+  vendor: VendorSchema,
 });
 
-// Next type needs to be defined as custom type
-UserSchema.pre("save", function(next) {
+UserSchema.pre<IUserModel>("save", function(next) {
   this.password = bcrypt.hashSync(this.password, 12);
   next();
 });
 
-// user and doc both need custom types defined
 UserSchema.set("toJSON", {
   transform: (doc, user) => {
     delete user.password;
