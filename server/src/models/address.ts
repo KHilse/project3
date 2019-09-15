@@ -1,13 +1,5 @@
-import { Document, Schema, Model, model } from "mongoose";
-
-export interface IAddressModel extends Document {
-  country: string,
-  state: string,
-  street: string,
-  streetNumber: string,
-  streetSuffix: string,
-  zipcode: string,
-}
+import { Schema, Model, model } from "mongoose";
+import { IAddressModel } from '../../../interfaces/modelInterfaces';
 
 export const AddressSchema: Schema = new Schema({
   country: String,
