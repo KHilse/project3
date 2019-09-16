@@ -19,3 +19,10 @@ export interface AppProps {
   getArtworks?(): void,
   getUser?(): string
 }
+
+interface IPost {
+  id: string;
+  media_type: string;
+  media_url: string;
+  timestamp: string;
+ }
