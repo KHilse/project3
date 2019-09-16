@@ -15,6 +15,7 @@ class Content extends Component<ContentInt> {
   render() {
     return (
       <div>
+      <Router>
         <Route exact path='/' component={Home} />
         //THESE ROUTE WILL BE ADDED AFTER WE GET THE RESTFULL ROUTES DONE
         //<Route pathe='/login' component={FacebookLogin} />
@@ -22,6 +23,7 @@ class Content extends Component<ContentInt> {
         // <Route path='/profile' component={Profile} />
          <Route path='/browse' refreshArtworks={this.props.refreshArtworks} component={Browse} />
         // <Route path='/logout' component={Logout} />
+      </Router>
       </div>
     )
   }

@@ -19,3 +19,8 @@ export interface AppProps {
   getArtworks?(): void,
   getUser?(): string
 }
+
+export interface ITest {
+  albumId: number,
+
+}
