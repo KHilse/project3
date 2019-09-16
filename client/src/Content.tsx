@@ -21,7 +21,10 @@ class Content extends Component<ContentInt> {
         //<Route pathe='/login' component={FacebookLogin} />
 
         // <Route path='/profile' component={Profile} />
-         <Route path='/browse' refreshArtworks={this.props.refreshArtworks} component={Browse} />
+         <Route path='/browse' render={ () =>
+           <Browse refreshArtworks={this.props.refreshArtworks}
+            artworks={this.props.artworks} />
+          } />
         // <Route path='/logout' component={Logout} />
       </Router>
       </div>

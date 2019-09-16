@@ -43,16 +43,15 @@ const useStyles = makeStyles((theme: Theme) =>
 const Browse = props => {
    const classes = useStyles();
     return (
-      <h1>hey bb</h1>
-      // <div className={classes.root}>
-      //   <GridList cellHeight={160} className={classes.gridList} cols={3}>
-      //     {this.props.artworks.map(tile => (
-      //       <GridListTile key={tile.img} cols={tile.cols || 1}>
-      //         <img src={tile.img} alt={tile.title} />
-      //       </GridListTile>
-      //     ))}
-      //   </GridList>
-      // </div>
+      <div className={classes.root}>
+        <GridList cellHeight={160} className={classes.gridList} cols={3}>
+          {props.artworks.map(work => (
+            <GridListTile key={work.id} cols={1}>
+              <img src={work.url} alt={work.title} />
+            </GridListTile>
+          ))}
+        </GridList>
+      </div>
     );
 }
 

@@ -48,10 +48,10 @@ class App extends Component<AppProps, {}> {
   }
 
   getArtworks = () => {
-    axios.get('http://placekitten.com/200/200')
+    axios.get('https://jsonplaceholder.typicode.com/photos?_start=10&_limit=10')
     .then(artworks => {
       console.log(artworks)
-      this.setState({artworks: artworks, current: {} })
+      this.setState({artworks: artworks.data, current: {} })
     })
     .catch(err => {
       console.log('Err while grabbing artworks', err)
