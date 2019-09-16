@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import Artist from './Artist'
+import Artist from './components/Artist'
 
 const App: React.FC = () => {
   return (
