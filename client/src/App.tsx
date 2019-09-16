@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios'
 
-import Artist from './components/pages/Artist'
-import FacebookLogin from './FacebookLogin'
+import Content from './Content'
 import Footer from './navigation/Footer'
 import Nav from './navigation/Nav'
 import Header from './navigation/Header'
@@ -16,11 +15,14 @@ export interface TokenCheck {
 class App extends Component {
 
   state = {
-    user: null
+    user: null,
+    artworks: [],
+    current: {}
   }
 
   componentDidMount() {
     this.getUser()
+    this.getArtworks()
   }
 
   getUser = () => {
@@ -46,13 +48,28 @@ class App extends Component {
     }
   }
 
+  getArtworks = () => {
+    axios.get('http://placekitten.com/200/200')
+    .then(artworks => {
+      console.log(artworks)
+      this.setState({artworks: artworks, current: {} })
+    })
+    .catch(err => {
+      console.log('Err while grabbing artworks', err)
+    })
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <Nav />
           <Header />
-          <FacebookLogin />
+          <Content
+          refreshArtworks={this.getArtworks}
+          artworks={this.state.artworks}
+          current={this.state.current}
+           />
           <Footer />
         </header>
       </div>

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 
-import Home from './components/pages/Home'
-import Profile from './components/pages/Profile'
 import Browse from './components/pages/Browse'
+import Home from './components/pages/Home'
 import Logout from './components/auth/Logout'
+import FacebookLogin from './FacebookLogin'
+import Profile from './components/pages/Profile'
 
 
 
@@ -14,6 +15,7 @@ class Content extends Component {
       <div>
         <Route exact path='/' component={Home}/>
         //THESE ROUTE WILL BE ADDED AFTER WE GET THE RESTFULL ROUTES DONE
+        //<Route pathe='/login' component={FacebookLogin} />
 
         // <Route path='/profile' component={Profile} />
         // <Route path='/browse' component={Browse} />

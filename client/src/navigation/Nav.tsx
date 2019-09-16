@@ -7,12 +7,11 @@ import Home from '../components/pages/Home'
 
 const Nav = () => {
   return (
-    <nav>
-      // need to set up some routes on the backend before I insert here I think, GET routes
-      // <Link component={Profile} />
-      // <Link component={Browse} />
-      // <Link component={Home} />
-    </nav>
+    <span>
+      <Link to='/profile' component={Profile}>Profile</Link>
+      <Link to='/browse' component={Browse}>Artworks</Link>
+      <Link to='/' component={Home}>Home</Link>
+    </span>
   )
 }
 
