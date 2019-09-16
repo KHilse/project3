@@ -7,6 +7,11 @@ import Logout from './components/auth/Logout'
 import FacebookLogin from './FacebookLogin'
 import Profile from './components/pages/Profile'
 
+export interface ContentInt {
+  getArtworks():void,
+  artworks: {id: string, image: string},
+}
+
 
 
 class Content extends Component {
@@ -18,7 +23,7 @@ class Content extends Component {
         //<Route pathe='/login' component={FacebookLogin} />
 
         // <Route path='/profile' component={Profile} />
-        // <Route path='/browse' component={Browse} />
+         <Route path='/browse' refreshArtworks={this.props.refreshArtworks} component={Browse} />
         // <Route path='/logout' component={Logout} />
       </div>
     )

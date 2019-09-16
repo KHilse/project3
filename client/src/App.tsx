@@ -8,9 +8,11 @@ import Nav from './navigation/Nav'
 import Header from './navigation/Header'
 import SERVER_URL from './const'
 
-export interface TokenCheck {
-  user: (string | null);
+export interface AppState {
+  user: (string | null),
+  [artworks: number]: {id: string, image: string}
 }
+
 
 class App extends Component {
 
