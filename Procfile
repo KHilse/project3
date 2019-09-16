@@ -1,2 +1,1 @@
-web: client/build/index.js
-api: server/build/index.js
+web: server/build/index.js
