@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { Schema, Model, model } from "mongoose";
 import { VendorSchema } from "./vendor";
-import { IUserModel } from '../../../interfaces/modelInterfaces';
+import { IUserModel } from '../../interfaces/modelInterfaces';
 
 export const UserSchema = new Schema({
   email: {

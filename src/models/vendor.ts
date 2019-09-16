@@ -1,6 +1,6 @@
 import { Schema, Model, model } from "mongoose";
 import { AddressSchema } from "./address";
-import { IVendorModel } from '../../../interfaces/modelInterfaces';
+import { IVendorModel } from '../../interfaces/modelInterfaces';
 
 export const VendorSchema: Schema = new Schema({
   address: AddressSchema,
