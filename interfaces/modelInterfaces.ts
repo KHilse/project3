@@ -12,6 +12,7 @@ export interface IAddressModel extends Document {
 export interface IUserModel extends Document {
   email: string,
   favorites: string[],
+  firstname: string,
   lastname: string,
   isAuthenticated(): boolean,
   password: string,

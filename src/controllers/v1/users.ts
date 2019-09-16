@@ -3,6 +3,7 @@ const router = express.Router();
 import dotenv from 'dotenv';
 dotenv.config();
 let db = require('../../models');
+import { IUserModel, IVendorModel } from '../../../interfaces/modelInterfaces';
 
 // GET /v1/users
 router.get('/', (req, res) => {
@@ -87,5 +88,21 @@ router.delete("/:id", (req, res) => {
 		res.status(503).send({ message: 'Server error while attempting delete'});
 	})
 })
+
+// TEST ROUTE
+router.get('/testusers', (req, res) => {
+	let firstNames: string[] = ['Abe', 'Ben', 'Catherine','Dale','Edgar','Fred','Gabe','Harry','Ignatz','Josh','Kobe'];
+	let lastNames: string[] = ['Abner','Bova','Carlos','Dagner','Ellison','Flinstone','Gates','Hill','Ingle','Jefferies','Keller'];
+
+	for (var i=0; i < 50; i++) {
+		db.User.create({
+			firstname: firstNames[Math.random()*firstNames.length],
+			lastname: lastNames[Math.random()*lastNames.length],
+			password: 'foo',
+			email: 'abc@def.com'
+		})
+	}
+})
+
 
 export default router;

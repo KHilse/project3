@@ -28,7 +28,7 @@ export const UserSchema = new Schema({
     required: true,
     type: String,
   },
-  vendor: VendorSchema,
+  vendor: VendorSchema
 });
 
 UserSchema.pre<IUserModel>("save", function(next) {
