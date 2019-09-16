@@ -8,7 +8,7 @@ const express_1 = __importDefault(require("express"));
 let app = express_1.default();
 // DB Models
 // Middleware
-app.use(express_1.default.static(__dirname + '/../client/build/'));
+app.use(express_1.default.static(__dirname + '/../../client/build/'));
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.json({ limit: '50mb ' }));
 app.use(cors_1.default());
