@@ -20,7 +20,7 @@ app.use("/v1/users", users);
 
 // 404 Catch-all route
 app.get("*", (req, res) => {
-	res.sendFile("index.html");
+	res.sendFile(__dirname + "/../client/build/index.html");
 })
 
 
