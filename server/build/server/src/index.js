@@ -16,9 +16,11 @@ app.use(cors_1.default());
 // Controllers
 const users_1 = __importDefault(require("./controllers/v1/users"));
 app.use("/v1/users", users_1.default);
+const instagram_1 = __importDefault(require("./controllers/v1/instagram"));
+app.use("/v1/instagram", instagram_1.default);
 // 404 Catch-all route
 app.get("*", (req, res) => {
     res.status(404).send({ message: "Not found!" });
 });
 // Listener
-app.listen(process.env.PORT || 3001, () => { console.log("Listening on port", process.env.PORT); });
+app.listen(process.env.PORT || 3001, () => { console.log("Listening on port", process.env.PORT || 3001); });

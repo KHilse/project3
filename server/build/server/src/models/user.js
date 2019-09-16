@@ -20,9 +20,9 @@ exports.UserSchema = new mongoose_1.Schema({
     },
     favorites: [String],
     firstname: {
-        type: String,
+        minlength: 2,
         required: true,
-        minlength: 2
+        type: String,
     },
     lastname: String,
     password: {
