@@ -26,3 +26,7 @@ interface IPost {
   media_url: string;
   timestamp: string;
  }
+export interface ITest {
+  albumId: number,
+
+}

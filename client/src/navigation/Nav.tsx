@@ -8,9 +8,11 @@ import Home from '../components/pages/Home'
 const Nav = () => {
   return (
     <span>
+    <Router>
       <Link to='/profile' component={Profile}>Profile</Link>
       <Link to='/browse' component={Browse}>Artworks</Link>
       <Link to='/' component={Home}>Home</Link>
+      </Router>
     </span>
   )
 }
