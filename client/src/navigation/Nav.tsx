@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, BrowserRouter as Router } from 'react-router-dom'
 
-import Profile from '../components/Profile'
+import Profile from '../components/pages/Profile'
+import Browse from '../components/pages/Browse'
+import Home from '../components/pages/Home'
 
 const Nav = () => {
   return (
-    <nav>
-      <Link component={Profile} />
-    </nav>
+    <span>
+      <Link to='/profile' component={Profile}>Profile</Link>
+      <Link to='/browse' component={Browse}>Artworks</Link>
+      <Link to='/' component={Home}>Home</Link>
+    </span>
   )
 }
 

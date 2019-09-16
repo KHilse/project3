@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 
-const Header = () => {
-  return (
-	 <div>
-	 	Da Header
-	 </div>
-  )
+
+class Header extends Component {
+  render() {
+    return(
+      <div>
+        Head
+      </div>
+    )
+  }
 }
 
 export default Header
