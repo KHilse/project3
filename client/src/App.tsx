@@ -8,13 +8,10 @@ import Nav from './navigation/Nav'
 import Header from './navigation/Header'
 import SERVER_URL from './const'
 
-export interface AppState {
-  user: (string | null),
-  [artworks: number]: {id: string, image: string}
-}
+import { AppProps } from './react-app-env'
 
 
-class App extends Component {
+class App extends Component<AppProps, {}> {
 
   state = {
     user: null,
