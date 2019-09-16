@@ -3,6 +3,8 @@ import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
+import AppProps from '../../react-app-env'
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {

@@ -7,18 +7,15 @@ import Logout from './components/auth/Logout'
 import FacebookLogin from './FacebookLogin'
 import Profile from './components/pages/Profile'
 
-export interface ContentInt {
-  getArtworks():void,
-  artworks: {id: string, image: string},
-}
+import { ContentInt } from './react-app-env'
 
 
 
-class Content extends Component {
+class Content extends Component<ContentInt> {
   render() {
     return (
       <div>
-        <Route exact path='/' component={Home}/>
+        <Route exact path='/' component={Home} />
         //THESE ROUTE WILL BE ADDED AFTER WE GET THE RESTFULL ROUTES DONE
         //<Route pathe='/login' component={FacebookLogin} />
 
