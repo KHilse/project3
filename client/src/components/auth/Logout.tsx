@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 
-class Signup extends Component {
+class Logout extends Component {
   render() {
     return(
       <form>
-        This is where the signup thang goes
+        Logout
       </form>
     )
   }
 }
 
-export default Signup
+export default Logout
