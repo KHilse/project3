@@ -31,7 +31,7 @@ exports.UserSchema = new mongoose_1.Schema({
         required: true,
         type: String,
     },
-    vendor: vendor_1.VendorSchema,
+    vendor: vendor_1.VendorSchema
 });
 exports.UserSchema.pre("save", function (next) {
     this.password = bcryptjs_1.default.hashSync(this.password, 12);

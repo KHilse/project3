@@ -20,6 +20,12 @@ export interface AppProps {
   getUser?(): string
 }
 
+interface IPost {
+  id: string;
+  media_type: string;
+  media_url: string;
+  timestamp: string;
+ }
 export interface ITest {
   albumId: number,
 

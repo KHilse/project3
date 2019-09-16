@@ -3,6 +3,7 @@ const router = express.Router();
 import dotenv from 'dotenv';
 dotenv.config();
 let db = require('../../models');
+import { IUserModel, IVendorModel } from '../../../interfaces/modelInterfaces';
 
 // GET /v1/users
 router.get('/', (req, res) => {
@@ -14,6 +15,31 @@ router.get('/', (req, res) => {
 		console.log(err);
 		res.status(503).send({ message: "Error! Can't get anything from the db" });
 	})})
+
+// TEST ROUTE
+router.get('/testusers', (req, res) => {
+	let firstNames: string[] = ['Abe', 'Ben', 'Catherine','Dale','Edgar','Fred','Gabe','Harry','Ignatz','Josh','Kobe'];
+	let lastNames: string[] = ['Abner','Bova','Carlos','Dagner','Ellison','Flinstone','Gates','Hill','Ingle','Jefferies','Keller'];
+	let faves: string[] = ['http://placekitten.com/50/50'];
+	let result: {}[] = [];
+
+	for (var i=0; i < 50; i++) {
+		let first = firstNames[Math.floor(Math.random()*firstNames.length)];
+		let last = lastNames[Math.floor(Math.random()*lastNames.length)];
+		
+		console.log(first,last);
+		result.push({
+			firstname: first,
+			lastname: last,
+			password: 'foo',
+			email: 'abc@def.com',
+			favorites: faves
+		})
+	}
+	console.log(result);
+	res.send(JSON.stringify(result));
+})
+
 
 // GET /v1/users/:id
 router.get("/:id", (req, res) => {
@@ -87,5 +113,8 @@ router.delete("/:id", (req, res) => {
 		res.status(503).send({ message: 'Server error while attempting delete'});
 	})
 })
+
+
+
 
 export default router;

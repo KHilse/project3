@@ -19,6 +19,27 @@ router.get('/', (req, res) => {
         res.status(503).send({ message: "Error! Can't get anything from the db" });
     });
 });
+// TEST ROUTE
+router.get('/testusers', (req, res) => {
+    let firstNames = ['Abe', 'Ben', 'Catherine', 'Dale', 'Edgar', 'Fred', 'Gabe', 'Harry', 'Ignatz', 'Josh', 'Kobe'];
+    let lastNames = ['Abner', 'Bova', 'Carlos', 'Dagner', 'Ellison', 'Flinstone', 'Gates', 'Hill', 'Ingle', 'Jefferies', 'Keller'];
+    let faves = ['http://placekitten.com/50/50'];
+    let result = [];
+    for (var i = 0; i < 50; i++) {
+        let first = firstNames[Math.floor(Math.random() * firstNames.length)];
+        let last = lastNames[Math.floor(Math.random() * lastNames.length)];
+        console.log(first, last);
+        result.push({
+            firstname: first,
+            lastname: last,
+            password: 'foo',
+            email: 'abc@def.com',
+            favorites: faves
+        });
+    }
+    console.log(result);
+    res.send(JSON.stringify(result));
+});
 // GET /v1/users/:id
 router.get("/:id", (req, res) => {
     db.User.findById(req.params.id)
