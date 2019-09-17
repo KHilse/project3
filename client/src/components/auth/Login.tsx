@@ -4,7 +4,7 @@ class Login extends Component {
   render() {
     return(
       <form>
-        login
+        <input type="text"  />
       </form>
     )
   }

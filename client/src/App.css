@@ -16,7 +16,7 @@ body {
   background-repeat: repeat;
   height: 100vh;
   z-index: -1;
-  background-color: #1C2023;
+  background-color: beige;
   background-attachment: fixed;
   width: 100%
 }
