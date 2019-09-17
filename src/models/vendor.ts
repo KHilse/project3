@@ -2,12 +2,17 @@ import crypto from "crypto";
 import { Model, model, Schema } from "mongoose";
 import { IVendorModel } from "../../interfaces/modelInterfaces";
 import { AddressSchema } from "./address";
+import { number } from "prop-types";
 export const VendorSchema: Schema = new Schema({
   address: AddressSchema,
   instagramAccessToken: String,
   instagramIdPage: String,
   phoneNumber: String,
   website: String,
+  location: {
+    lat: number,
+    long: number
+  }
   pinned: [String]
 });
 
