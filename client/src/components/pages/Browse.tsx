@@ -42,7 +42,7 @@ const Browse = props => {
       <div className={classes.root} id="browseContainer">
         <GridList cellHeight={160} cols={3}>
           {props.artworks.map(work => (
-            <GridListTile key={work.id} cols={1}>
+            <GridListTile key={work.id} cols={1} className="tile">
               <img src={work.url} alt={work.title} />
             </GridListTile>
           ))}

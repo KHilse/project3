@@ -65,7 +65,6 @@ class App extends Component<AppProps, {}> {
     return (
       <Router>
         <div className="App">
-          <header className="App-header">
             <Nav />
             <Header />
             <Content
@@ -74,7 +73,6 @@ class App extends Component<AppProps, {}> {
             current={this.state.current}
              />
             <Footer />
-          </header>
         </div>
       </Router>
     );
