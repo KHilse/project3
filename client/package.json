@@ -3,14 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/facebook-js-sdk": "^3.3.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.1.1",
+    "typescript": "3.6.3"
+  },
+  "devDependencies": {
     "@types/jest": "24.0.18",
     "@types/node": "12.7.5",
     "@types/react": "16.9.2",
-    "@types/react-dom": "16.9.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1",
-    "typescript": "3.6.3"
+    "@types/react-dom": "16.9.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -32,8 +36,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/facebook-js-sdk": "^3.3.0"
   }
 }
