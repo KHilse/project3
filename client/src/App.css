@@ -1,5 +1,5 @@
 .App-header {
-  background-color: #1C2023;
+  background-color: #372F32;
   min-height: 0vh;
   display: flex;
   flex-direction: column;
@@ -12,13 +12,12 @@
 body {
   text-align: center;
   font-family: Roboto;
-  background-image: url('/Background.svg');
-  background-repeat: repeat;
   height: 100vh;
   z-index: -1;
-  background-color: beige;
+  background-color: #F9F9F9;
   background-attachment: fixed;
-  width: 100%
+  width: 100%;
+  justify-content: center;
 }
 
 #browseContainer {
@@ -33,9 +32,20 @@ body {
   position: fixed;
   top: 0;
   width:100%;
-  background-color: black;
   z-index: 1;
   padding: 15px 0;
+  background-color: #F9F9F9;
+
+}
+
+.footer{
+  padding: 20px;
+  background-color: #372F32;
+
+}
+
+.login {
   justify-content: center;
-  margin-left: -100;
+  margin-top: 100px;
+  border: 2px solid black;
 }
