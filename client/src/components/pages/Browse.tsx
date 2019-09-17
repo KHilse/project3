@@ -14,10 +14,6 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'hidden',
       backgroundColor: theme.palette.background.paper,
     },
-    gridList: {
-      width: 500,
-      height: 450,
-    },
   }),
 );
 
@@ -43,8 +39,8 @@ const useStyles = makeStyles((theme: Theme) =>
 const Browse = props => {
    const classes = useStyles();
     return (
-      <div className={classes.root}>
-        <GridList cellHeight={160} className={classes.gridList} cols={3}>
+      <div className={classes.root} id="browseContainer">
+        <GridList cellHeight={160} cols={3}>
           {props.artworks.map(work => (
             <GridListTile key={work.id} cols={1}>
               <img src={work.url} alt={work.title} />

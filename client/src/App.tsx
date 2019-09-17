@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios'
+import {BrowserRouter as Router} from 'react-router-dom'
 
 import Content from './Content'
 import Footer from './navigation/Footer'
@@ -50,7 +51,7 @@ class App extends Component<AppProps, {}> {
   }
 
   getArtworks = () => {
-    axios.get('https://jsonplaceholder.typicode.com/photos?_start=10&_limit=10')
+    axios.get('https://jsonplaceholder.typicode.com/photos?_start=12&_limit=12')
     .then(artworks => {
       console.log(artworks)
       this.setState({artworks: artworks.data, current: {} })
@@ -62,18 +63,20 @@ class App extends Component<AppProps, {}> {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <Nav />
-          <Header />
-          <Content
-          refreshArtworks={this.getArtworks}
-          artworks={this.state.artworks}
-          current={this.state.current}
-           />
-          <Footer />
-        </header>
-      </div>
+      <Router>
+        <div className="App">
+          <header className="App-header">
+            <Nav />
+            <Header />
+            <Content
+            refreshArtworks={this.getArtworks}
+            artworks={this.state.artworks}
+            current={this.state.current}
+             />
+            <Footer />
+          </header>
+        </div>
+      </Router>
     );
   }
 }
