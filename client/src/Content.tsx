@@ -15,9 +15,11 @@ class Content extends Component<ContentInt> {
   render() {
     return (
       <div>
-        <Route exact path='/' component={Home} />
-         <Route path='/profile' component={Profile} />
-         <Route path='/browse' render={ () =>
+        <Route exact path='/' render={ () =>
+          <Home refreshUser={this.props.refreshUser} />
+        } />
+        <Route path='/profile' component={Profile} />
+        <Route path='/browse' render={ () =>
            <Browse refreshArtworks={this.props.refreshArtworks}
             artworks={this.props.artworks} />
           } />

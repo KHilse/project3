@@ -68,6 +68,7 @@ class App extends Component<AppProps, {}> {
             <Nav user={this.state.user} />
             <Content
             refreshArtworks={this.getArtworks}
+            refreshUser={this.getUser}
             artworks={this.state.artworks}
             current={this.state.current}
              />

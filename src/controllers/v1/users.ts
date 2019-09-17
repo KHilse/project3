@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 const router = express.Router();
 import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken'
 dotenv.config();
 let db = require('../../models');
 import { IUserModel, IVendorModel } from '../../../interfaces/modelInterfaces';
@@ -26,7 +27,7 @@ router.get('/testusers', (req, res) => {
 	for (var i=0; i < 50; i++) {
 		let first = firstNames[Math.floor(Math.random()*firstNames.length)];
 		let last = lastNames[Math.floor(Math.random()*lastNames.length)];
-		
+
 		console.log(first,last);
 		result.push({
 			firstname: first,
@@ -46,7 +47,7 @@ router.get("/:id", (req, res) => {
 	db.User.findById(req.params.id)
 	.then(user => {
 		if (user) {
-		res.send(user);			
+		res.send(user);
 		} else {
 			res.status(404).send({ message: 'Resource not located'});
 		}
@@ -71,6 +72,29 @@ router.post("/", (req, res) => {
 			res.status(503).send({ message: 'Database or server error' });
 		}
 	})
+})
+
+router.post("/login", (req, res) => {
+	db.User.findOne({ email: req.body.email })
+	.then(user => {
+		if ( !user || !user.password ) {
+			res.status(404).send({ message: "User not Found"})
+		}
+		if (!user.isAuthenticated(req.body.password)){
+			//Invalid Credentials wrong password
+			return res.status(406).send({ message: 'Not Acceptable: Invalid Credentials' })
+
+		}
+
+		let token = jwt.sign(user.toJSON(), process.env.JWT_SECRET, {
+      expiresIn: 60 * 60 * 3
+    })
+    res.send({ token })
+  })
+	.catch(err => {
+    console.log('Error in POST /auth/login', err)
+    res.status(503).send({ message: 'Something wrong, prob DB related or you made a typo' })
+  })
 })
 
 // PUT /v1/users/:id
