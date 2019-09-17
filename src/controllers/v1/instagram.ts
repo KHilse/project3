@@ -126,4 +126,5 @@ const getOneInstagramPost = async (req: Request, res: Response) => {
 router.get("/", getAllInstagramPosts);
 router.get("/:id", getOneInstagramPost);
 
+
 export default router;

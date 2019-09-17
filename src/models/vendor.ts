@@ -8,6 +8,7 @@ export const VendorSchema: Schema = new Schema({
   instagramIdPage: String,
   phoneNumber: String,
   website: String,
+  pinned: [String]
 });
 
 VendorSchema.methods.encryptToken = (token: string): string => {
