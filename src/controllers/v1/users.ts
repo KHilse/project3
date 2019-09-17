@@ -6,17 +6,6 @@ let db = require('../../models');
 import { IUserModel, IVendorModel } from '../../../interfaces/modelInterfaces';
 import { UserSchema } from '../../models/user';
 
-// GET /v1/users
-router.get('/', (req, res) => {
-	db.User.find()
-	.then(users => {
-		res.send(users);
-	})
-	.catch(err => {
-		console.log(err);
-		res.status(503).send({ message: "Error! Can't get anything from the db" });
-	})})
-
 // TEST ROUTE
 // This route doesn't do any db access, it just returns 50 fake users in an array
 router.get('/testusers', (req, res) => {
@@ -40,6 +29,18 @@ router.get('/testusers', (req, res) => {
 	}
 	console.log(result);
 	res.send(JSON.stringify(result));
+})
+
+// GET /v1/users
+router.get('/', (req, res) => {
+	db.User.find()
+	.then(users => {
+		res.send(users);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(503).send({ message: "Error! Can't get anything from the db" });
+	})
 })
 
 // GET /v1/users/:id

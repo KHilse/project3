@@ -12,8 +12,8 @@ export const VendorSchema: Schema = new Schema({
   location: {
     lat: number,
     long: number
-  }
-  pinned: [String]
+  },
+  pinned: [String],
 });
 
 VendorSchema.methods.encryptToken = (token: string): string => {

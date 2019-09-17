@@ -5,3 +5,4 @@ client/node_modules
 interfaces/node_modules
 .env
 node_modules
+test.ts
