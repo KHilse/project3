@@ -134,7 +134,7 @@ router.post('/:id/favorites/add', (req, res) => {
 	.then(user => {
 		if (user) {
 			let faves : string[] = user.favorites;
-			faves.push(req.body);
+			faves.push(req.body.newFave);
 			db.User.update({
 				favorites: faves
 			})
@@ -202,7 +202,7 @@ router.post('/:id/pinned/add', (req, res) => {
 	.then(user => {
 		if (user) {
 			let pins : string[] = user.vendor.pinned;
-			pins.push(req.body);
+			pins.push(req.body.newFave);
 			db.User.update({
 				vendor: {
 					pinned: pins
