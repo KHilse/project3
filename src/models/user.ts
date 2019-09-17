@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
-import { Schema, Model, model } from "mongoose";
+import { Model, model, Schema } from "mongoose";
+import { IUserModel } from "../../interfaces/modelInterfaces";
 import { VendorSchema } from "./vendor";
-import { IUserModel } from '../../interfaces/modelInterfaces';
 
 export const UserSchema = new Schema({
   email: {
@@ -17,21 +17,21 @@ export const UserSchema = new Schema({
   },
   favorites: [String],
   firstname: {
-		type: String,
-		required: true,
-		minlength: 2
-	},
-	lastname: String,
+    minlength: 2,
+    required: true,
+    type: String,
+  },
+  lastname: String,
   password: {
     maxlength: 32,
     minLength: 8,
     required: true,
     type: String,
   },
-  vendor: VendorSchema
+  vendor: VendorSchema,
 });
 
-UserSchema.pre<IUserModel>("save", function(next) {
+UserSchema.pre<IUserModel>("save", function (next) {
   this.password = bcrypt.hashSync(this.password, 12);
   next();
 });
@@ -47,4 +47,4 @@ UserSchema.methods.isAuthenticated = function(typedPassword: string): boolean {
   return bcrypt.compareSync(typedPassword, this.password);
 };
 
-export const User: Model<IUserModel>  = model<IUserModel>("User", UserSchema)
+export const User: Model<IUserModel> = model<IUserModel>("User", UserSchema);

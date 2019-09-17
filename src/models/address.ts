@@ -1,5 +1,5 @@
-import { Schema, Model, model } from "mongoose";
-import { IAddressModel } from '../../interfaces/modelInterfaces';
+import { Model, model, Schema } from "mongoose";
+import { IAddressModel } from "../../interfaces/modelInterfaces";
 
 export const AddressSchema: Schema = new Schema({
   country: String,
