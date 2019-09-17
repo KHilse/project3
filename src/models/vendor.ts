@@ -10,10 +10,7 @@ export const VendorSchema: Schema = new Schema({
   instagramIdPage: String,
   phoneNumber: String,
   website: String,
-  location: {
-    lat: number,
-    long: number
-  },
+  location: {},
   pinned: [String],
 });
 
