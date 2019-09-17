@@ -1,61 +1,119 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import dotenv from "dotenv";
 import express, { Application, Request, Response, Router } from "express";
-import { IPost } from "../../../../interfaces/modelInterfaces";
+import { sha256 } from "js-sha256";
+import { IPost, IUserModel } from "../../../../interfaces/modelInterfaces";
 import { User } from "../../models";
 
 const router: Router = express.Router();
+dotenv.config();
 
 const BASE_URL = "https://graph.facebook.com/v4.0/";
-const at = "EAAHEmPLN9ZAYBAMRz4LsN3jbT43HWFSKR83Cp2a5BmAzxgO23587jKLLsZA3qmHMZBe4dQITzXIeSNp7FZAtmi90cHSrLN8ZCMpV8FupWWSqxlrhgrkTsXXJoiL9uZC1AhGmthAIpbyp2ZC6FsnVYf329OpyqJnEmDMiZB4GAm3MkSYP4JH25Tp3WVOVo9NEZAZBsZAVYJymU6DYJEFmdhWjcPIjsn9VFoyV9o4pOO3bjUJpnSFIkN6SQBHilMwkCVTARwZD";
-const instaID = "17841420481036644";
 
 const errorCatch = (err: AxiosError, message: string) => {
   console.log(message, err);
 };
 
-const getInstagramPost = (id: string, accessToken: string): Promise<{}> => {
- return axios.get(BASE_URL + id + "?fields=id,media_type,media_url,timestamp&access_token=" + accessToken)
-  .then((response: AxiosResponse) => {
-      return response.data;
-  })
-  .catch((err) => {
-      errorCatch(err, "Error gettting media metadata");
-  });
+const getAppSecretProof = (accessToken: string, appSecret: string): string => {
+  return sha256.hmac(appSecret, accessToken);
 };
+// In Progress, Making code DRY
+// const getAPIParams = async (id): Promise<T> => {
+//   const params = await User.findById(id)
+//   .then( (userDoc) => {
+//     const accessToken = userDoc.vendor.decryptAccessToken();
+//     const appSecretProof = getAppSecretProof(accessToken, process.env.APP_SECRET);
+//     const instagramIDPage = userDoc.vendor.instagramIDPage;
+//     return { accessToken, appSecretProof, instagramIDPage};
+//   })
+//   .catch( (err: AxiosError) => {
+//     errorCatch(err, "Error getting User");
+//   });
+// };
+
+// In Progress, Making code DRY
+// const getInstagramPostMediaData = (url: string): Promise<{}> =>{
+//  return axios.get(url)
+//   .then((response: AxiosResponse) => {
+//       return response.data;
+//   })
+//   .catch((err) => {
+//     errorCatch(err, "Error gettting media metadata");
+//   });
+// };
 
 const getAllInstagramPosts = async (req: Request, res: Response) => {
+  let accessToken: string = "";
+  let appSecretProof: string = "";
+  let instagramIDPage: string = "";
+  User.findById(req.params.id)
+  .then( (userDoc) => {
+    accessToken = userDoc.vendor.decryptAccessToken();
+    appSecretProof = getAppSecretProof(accessToken, process.env.APP_SECRET);
+    instagramIDPage = userDoc.vendor.instagramIDPage;
+  })
+  .catch( (err: AxiosError) => {
+    errorCatch(err, "Error getting User");
+  });
   const postsArray: IPost[] = [];
-  const postIdList: any[] = await axios.get(BASE_URL + instaID + "/media?access_token=" + accessToken)
-    .then((response: AxiosResponse) => {
-      return response.data.data;
-    })
-    .catch((err: AxiosError) => {
-      errorCatch(err, "Error with media list get");
-    });
-  axios.all(postIdList.map((post: { id: string }) => {
-    return axios.get(BASE_URL +
-      post.id +
-      "?fields=id,media_type,media_url,timestamp&access_token=" +
-      accessToken)
+  // tslint:disable-next-line: max-line-length
+  const mediaListURL = BASE_URL + instagramIDPage  + "/media?access_token=" + accessToken + "&appsecret_proof=" + appSecretProof;
+  const postIdList: any[] = await axios.get(mediaListURL)
+  .then((response: AxiosResponse) => {
+    return response.data.data;
+  })
+  .catch((err: AxiosError) => {
+    errorCatch(err, "Error with media list get");
+  });
+  axios.all(
+    postIdList.map((post: { id: string }) => {
+      // tslint:disable-next-line: max-line-length
+      const mediaDataURL = BASE_URL + post.id + "?fields=id,media_type,media_url,timestamp&access_token=" + accessToken +  "&appsecret_proof=" + appSecretProof;
+      axios.get(mediaDataURL)
       .then((response: AxiosResponse) => {
         return response.data;
       })
       .catch((err) => {
         errorCatch(err, "Error gettting media metadata");
       });
+    })
+  )
+  .then(axios.spread((...posts) => {
+    for (const post of posts) {
+      // Need to specify post Type
+      postsArray.push(post);
+    }
   }))
-    .then(axios.spread((...posts) => {
-      for (const post of posts) {
-        postsArray.push(post);
-      }
-    })).then(() => {
-      res.send({ message: postsArray });
-    });
+  .then(() => {
+    res.send({ message: postsArray });
+  })
+  .catch((err: AxiosError) => {
+    errorCatch(err, "Error resolving media metadata promises");
+  });
 };
 
-const getOneInstagramPost = (req: Request, res: Response) => {
+const getOneInstagramPost = async (req: Request, res: Response) => {
+  let accessToken: string  = "";
+  let appSecretProof: string = "";
 
+  await User.findById(req.params.id)
+  .then( (userDoc) => {
+    accessToken = userDoc.vendor.decryptAccessToken();
+    appSecretProof = getAppSecretProof(accessToken, process.env.APP_SECRET);
+  })
+  .catch( (err: AxiosError) => {
+    errorCatch(err, "Error getting User");
+  });
+  axios.get(BASE_URL + req.params.id + "?fields=id,media_type,media_url,timestamp&access_token=" + accessToken + "&appsecret_proof=" + appSecretProof)
+  .then((response: AxiosResponse) => {
+      return response.data;
+  })
+  .then((data) =>{
+    res.send(data);
+  })
+  .catch((err) => {
+    errorCatch(err, "Error gettting media metadata");
+  });
 };
 
 router.get("/", getAllInstagramPosts);
