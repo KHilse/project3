@@ -15,17 +15,10 @@ router.get('/testusers', (req, res) => {
 	let faves: string[] = ['http://placekitten.com/50/50'];
 	let result: {}[] = [];
 
-<<<<<<< HEAD:client/src/components/auth/src/controllers/v1/users.ts
 	for (var i=0; i < 50; i++) {
 		let first = firstNames[Math.floor(Math.random()*firstNames.length)];
 		let last = lastNames[Math.floor(Math.random()*lastNames.length)];
 
-=======
-	for (let i : number = 0; i < 50; i++) {
-		let first : string = firstNames[Math.floor(Math.random()*firstNames.length)];
-		let last : string = lastNames[Math.floor(Math.random()*lastNames.length)];
-		
->>>>>>> b5ca380e2dcca2a178fcc5993c16f9615f1d5e24:src/controllers/v1/users.ts
 		console.log(first,last);
 		result.push({
 			firstname: first,
