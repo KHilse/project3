@@ -1,14 +1,17 @@
 import React, {Component} from 'react'
+import axios from 'axios'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       display: 'flex',
       flexWrap: 'wrap',
+      backgroundColor: '#F9F9F9'
     },
     textField: {
       marginLeft: theme.spacing(1),
@@ -28,8 +31,6 @@ const Test = props => {
   let styles : any = useStyles();
   return(
     <div className="formTemp">
-      <h1> Login </h1>
-      <hr className="arrow" />
       <form>
         <TextField
           id="filled-email-input"
@@ -39,7 +40,6 @@ const Test = props => {
           name="email"
           autoComplete="email"
           margin="normal"
-          variant="filled"
         />
         <br />
         <TextField
@@ -47,12 +47,12 @@ const Test = props => {
           label="Password"
           className={styles.textField}
           type="password"
-          autoComplete="current-password"
           margin="normal"
-          variant="filled"
         />
         <br />
-          <input type='submit' />
+          <Button variant="contained" color="secondary" >
+          Submit
+          </Button>
         <br />
       </form>
     </div>

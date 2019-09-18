@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import Login, { LoginInt } from './Login'
 import Signup from '../auth/Signup'
 import Test from './Test'
+import inkline from '../../theme/Mui'
 
+import { ThemeProvider } from '@material-ui/styles';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -43,9 +45,8 @@ function a11yProps(index: any) {
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    width: 500,
-    backgroundColor: theme.palette.background.paper,
-  },
+    width: 800,
+  }
 }));
 
 const AuthBox = props => {
@@ -59,8 +60,9 @@ const AuthBox = props => {
     return (
       <div className="tabs">
         <div className={classes.root}>
-          <AppBar position="static">
-            <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+        <ThemeProvider theme={inkline}>
+          <AppBar position="static" className="AppBar">
+            <Tabs  value={value} onChange={handleChange} aria-label="simple tabs example">
               <Tab label="Login" {...a11yProps(0)} />
               <Tab label="Signup" {...a11yProps(1)} />
             </Tabs>
@@ -71,6 +73,7 @@ const AuthBox = props => {
           <TabPanel value={value} index={1}>
             <Signup />
           </TabPanel>
+          </ThemeProvider>
         </div>
       </div>
     );
