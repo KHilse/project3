@@ -10,6 +10,7 @@ dotenv.config();
 export const VendorSchema: Schema = new Schema({
   address: AddressSchema,
   appSecretProof: String,
+  businessName: String,
   instagramAccessToken: String,
   instagramIdPage: String,
   phoneNumber: String,
