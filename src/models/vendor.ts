@@ -1,14 +1,17 @@
+import axios from "axios";
 import crypto from "crypto";
 import { Model, model, Schema } from "mongoose";
 import { IVendorModel } from "../../interfaces/modelInterfaces";
 import { AddressSchema } from "./address";
+
 export const VendorSchema: Schema = new Schema({
   address: AddressSchema,
+  appSecretProof: String,
   instagramAccessToken: String,
   instagramIdPage: String,
   phoneNumber: String,
+  pinned: [String],
   website: String,
-  pinned: [String]
 });
 
 VendorSchema.methods.encryptToken = (token: string): string => {
@@ -27,6 +30,18 @@ VendorSchema.methods.decryptToken = (encryptedToken: string): string => {
   let clearStr = myKey.update(encryptedToken, "hex", "utf8");
   clearStr += myKey.final("utf8");
   return clearStr;
+};
+
+VendorSchema.methods.getLongLivedToken = async (appId: string, appSecret: string, token: string) => {
+  const url = `https://graph.facebook.com/v4.0/oauth/access_token?grant_type=fb_exchange_tokenclient_id=${appId}&client_secret=${appSecret}&fb_exchange_token=${token}`;
+  const longLivedToken = await axios.get(url)
+  .then((response) => {
+    return response.data.access_token;
+  })
+  .catch((err) => {
+    console.log(err, "Error getting long-lived token");
+  });
+  return longLivedToken;
 };
 
 export const Vendor: Model<IVendorModel> = model<IVendorModel>("Vendor", VendorSchema);

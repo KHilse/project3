@@ -21,10 +21,12 @@ export interface IUserModel extends Document {
 
 export interface IVendorModel extends Document {
   address: IAddressModel;
+  appSecretProof: string;
   instagramAccessToken: string;
   instagramIdPage: string;
   phoneNumber: string;
+  pinned: string[];
   website: string;
-  decryptToken(): string;
-  encryptToken(): string;
+  decryptToken(token: string): string;
+  encryptToken(token: string): string;
 }
