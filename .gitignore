@@ -6,3 +6,4 @@ interfaces/node_modules
 .env
 node_modules
 test.ts
+.DS_Store
