@@ -13,12 +13,16 @@ import { ContentInt } from './react-app-env'
 
 class Content extends Component<ContentInt> {
   render() {
+    console.log('USER:', this.props.user);
     return (
       <div>
         <Route exact path='/' render={ () =>
           <Home refreshUser={this.props.refreshUser} />
         } />
-        <Route path='/profile' component={Profile} />
+
+        <Route path='/profile' render={
+        () => <Profile user={this.props.user} /> } />
+
         <Route path='/browse' render={ () =>
            <Browse refreshArtworks={this.props.refreshArtworks}
             artworks={this.props.artworks} />
