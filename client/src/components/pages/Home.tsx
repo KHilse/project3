@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 
-import Signup from '../auth/Signup'
-import Login from '../auth/Login'
-import Browse from './Browse'
+import Login, { LoginInt } from '../auth/Login'
 
-class Home extends Component {
+class Home extends Component <LoginInt> {
   render() {
     return (
       <div>
-      <Signup />
-      <Login />
+      lalalalalala
+      <Login refreshUser={this.props.refreshUser}/>
       </div>
     )
   }

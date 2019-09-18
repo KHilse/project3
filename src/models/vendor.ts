@@ -1,9 +1,11 @@
 import axios from "axios";
 import crypto from "crypto";
+import dotenv from "dotenv";
 import { Model, model, Schema } from "mongoose";
 import { IVendorModel } from "../../interfaces/modelInterfaces";
 import { AddressSchema } from "./address";
 
+dotenv.config();
 export const VendorSchema: Schema = new Schema({
   address: AddressSchema,
   appSecretProof: String,
@@ -12,10 +14,11 @@ export const VendorSchema: Schema = new Schema({
   phoneNumber: String,
   pinned: [String],
   website: String,
+  location: {},
 });
 
 VendorSchema.methods.encryptToken = (token: string): string => {
-  const key = crypto.scryptSync("Blah#Foo*Bar", "salt", 24);
+  const key = crypto.scryptSync(process.env.CRYPTO_KEY || "", "salt", 24);
   const iv = Buffer.alloc(16, 0);
   const myKey: crypto.Cipher = crypto.createCipheriv("aes-192-cbc", key, iv);
   let encStr = myKey.update(token, "utf8", "hex");
@@ -24,7 +27,7 @@ VendorSchema.methods.encryptToken = (token: string): string => {
 };
 
 VendorSchema.methods.decryptToken = (encryptedToken: string): string => {
-  const key = crypto.scryptSync("Blah#Foo*Bar", "salt", 24);
+  const key = crypto.scryptSync(process.env.CRYPTO_KEY || "", "salt", 24);
   const iv = Buffer.alloc(16, 0);
   const myKey = crypto.createDecipheriv("aes-192-cbc", key, iv);
   let clearStr = myKey.update(encryptedToken, "hex", "utf8");

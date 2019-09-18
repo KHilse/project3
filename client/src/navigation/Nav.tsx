@@ -1,19 +1,30 @@
 import React, { Component } from 'react'
-import { Link, BrowserRouter as Router } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-import Profile from '../components/pages/Profile'
-import Browse from '../components/pages/Browse'
-import Home from '../components/pages/Home'
 
-const Nav = () => {
+const Nav = props => {
+  let links;
+
+  if (props.user) {
+    links = (
+      <span>
+        <Link to='/profile'>Profile</Link>
+        <Link to='/logout'>Logout</Link>
+      </span>
+    )
+  } else {
+    let links = ''
+  }
+
+
   return (
-    <span>
-    <Router>
-      <Link to='/profile' component={Profile}>Profile</Link>
-      <Link to='/browse' component={Browse}>Artworks</Link>
-      <Link to='/' component={Home}>Home</Link>
-      </Router>
-    </span>
+    <div className="navBar">
+        <span>
+          <Link to='/browse'>Artworks</Link>
+          <Link to='/'>Home</Link>
+          {links}
+        </span>
+    </div>
   )
 }
 

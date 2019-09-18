@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios'
+import {BrowserRouter as Router} from 'react-router-dom'
 
 import Content from './Content'
 import Footer from './navigation/Footer'
@@ -50,10 +51,10 @@ class App extends Component<AppProps, {}> {
   }
 
   getArtworks = () => {
-    axios.get('http://placekitten.com/200/200')
+    axios.get('https://jsonplaceholder.typicode.com/photos?_start=12&_limit=12')
     .then(artworks => {
       console.log(artworks)
-      this.setState({artworks: artworks, current: {} })
+      this.setState({artworks: artworks.data, current: {} })
     })
     .catch(err => {
       console.log('Err while grabbing artworks', err)
@@ -62,18 +63,18 @@ class App extends Component<AppProps, {}> {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <Nav />
-          <Header />
-          <Content
-          refreshArtworks={this.getArtworks}
-          artworks={this.state.artworks}
-          current={this.state.current}
-           />
-          <Footer />
-        </header>
-      </div>
+      <Router>
+        <div className="App">
+            <Nav user={this.state.user} />
+            <Content
+            refreshArtworks={this.getArtworks}
+            refreshUser={this.getUser}
+            artworks={this.state.artworks}
+            current={this.state.current}
+             />
+            <Footer />
+        </div>
+      </Router>
     );
   }
 }

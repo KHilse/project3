@@ -7,6 +7,7 @@ export interface ImageTiles {
 
 export interface ContentInt {
   refreshArtworks():void,
+  refreshUser(),
   user?: (string | null),
   artworks?: any[],
   current?: ({} | null),
