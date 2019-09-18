@@ -1,17 +1,8 @@
-.App-header {
-  background-color: #372F32;
-  min-height: 0vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+
 
 body {
   text-align: center;
-  font-family: Roboto;
+  font-family: 'Raleway', sans-serif;
   height: 100vh;
   z-index: -1;
   background-color: #F9F9F9;
@@ -29,18 +20,21 @@ body {
 }
 
 .navBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   top: 0;
   width:100%;
   z-index: 1;
   padding: 15px 0;
   background-color: #F9F9F9;
-
 }
 
 .footer{
   padding: 20px;
-  background-color: #372F32;
+  background-color: #BB9B8B;
 
 }
 
@@ -48,4 +42,38 @@ body {
   justify-content: center;
   margin-top: 100px;
   border: 2px solid black;
+}
+
+.formTemp {
+  display: inline-block;
+  text-align: center;
+  justify-content: center;
+  margin-top: 100px;
+  border: 2px solid #9C0A02;
+  background-color: #F9F9F9;
+  padding: 20px;
+  width: 50%;
+  border-radius: 2px;
+
+}
+
+label {
+  color: #181617;
+}
+
+.home {
+  text-align: center;
+  min-height: 85vh;
+}
+
+h1 {
+  font-family: 'Alfa Slab One', cursive;
+}
+
+.arrow {
+  margin-bottom: 50px;
+}
+
+.tabs {
+  margin-top: 100px;
 }

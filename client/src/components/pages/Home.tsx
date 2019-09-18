@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
+import AuthBox from '../auth/AuthBox'
 
-import Login, { LoginInt } from '../auth/Login'
+const Home = props => {
 
-class Home extends Component <LoginInt> {
-  render() {
     return (
-      <div>
-      lalalalalala
-      <Login refreshUser={this.props.refreshUser}/>
+      <div className="formTemp">
+      <AuthBox />
+
       </div>
     )
-  }
+
 }
 
 export default Home
