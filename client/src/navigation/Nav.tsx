@@ -8,7 +8,6 @@ const Nav = props => {
   if (props.user) {
     links = (
       <span>
-        <Link to='/profile'>Profile</Link>
         <Link to='/logout'>Logout</Link>
       </span>
     )
@@ -20,6 +19,7 @@ const Nav = props => {
   return (
     <div className="navBar">
         <span>
+          <Link to='/profile'>Profile</Link>
           <Link to='/browse'>Artworks</Link>
           <Link to='/'>Home</Link>
           {links}

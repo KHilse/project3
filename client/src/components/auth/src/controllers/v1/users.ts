@@ -5,29 +5,27 @@ import jwt from 'jsonwebtoken'
 dotenv.config();
 let db = require('../../models');
 import { IUserModel, IVendorModel } from '../../../interfaces/modelInterfaces';
-
-// GET /v1/users
-router.get('/', (req, res) => {
-	db.User.find()
-	.then(users => {
-		res.send(users);
-	})
-	.catch(err => {
-		console.log(err);
-		res.status(503).send({ message: "Error! Can't get anything from the db" });
-	})})
+import { UserSchema } from '../../models/user';
 
 // TEST ROUTE
+// This route doesn't do any db access, it just returns 50 fake users in an array
 router.get('/testusers', (req, res) => {
 	let firstNames: string[] = ['Abe', 'Ben', 'Catherine','Dale','Edgar','Fred','Gabe','Harry','Ignatz','Josh','Kobe'];
 	let lastNames: string[] = ['Abner','Bova','Carlos','Dagner','Ellison','Flinstone','Gates','Hill','Ingle','Jefferies','Keller'];
 	let faves: string[] = ['http://placekitten.com/50/50'];
 	let result: {}[] = [];
 
+<<<<<<< HEAD:client/src/components/auth/src/controllers/v1/users.ts
 	for (var i=0; i < 50; i++) {
 		let first = firstNames[Math.floor(Math.random()*firstNames.length)];
 		let last = lastNames[Math.floor(Math.random()*lastNames.length)];
 
+=======
+	for (let i : number = 0; i < 50; i++) {
+		let first : string = firstNames[Math.floor(Math.random()*firstNames.length)];
+		let last : string = lastNames[Math.floor(Math.random()*lastNames.length)];
+		
+>>>>>>> b5ca380e2dcca2a178fcc5993c16f9615f1d5e24:src/controllers/v1/users.ts
 		console.log(first,last);
 		result.push({
 			firstname: first,
@@ -41,6 +39,17 @@ router.get('/testusers', (req, res) => {
 	res.send(JSON.stringify(result));
 })
 
+// GET /v1/users
+router.get('/', (req, res) => {
+	db.User.find()
+	.then(users => {
+		res.send(users);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(503).send({ message: "Error! Can't get anything from the db" });
+	})
+})
 
 // GET /v1/users/:id
 router.get("/:id", (req, res) => {
@@ -156,7 +165,7 @@ router.post('/:id/favorites/add', (req, res) => {
 	.then(user => {
 		if (user) {
 			let faves : string[] = user.favorites;
-			faves.push(req.body);
+			faves.push(req.body.newFave);
 			db.User.update({
 				favorites: faves
 			})
@@ -224,7 +233,7 @@ router.post('/:id/pinned/add', (req, res) => {
 	.then(user => {
 		if (user) {
 			let pins : string[] = user.vendor.pinned;
-			pins.push(req.body);
+			pins.push(req.body.newFave);
 			db.User.update({
 				vendor: {
 					pinned: pins
