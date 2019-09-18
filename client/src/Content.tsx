@@ -20,8 +20,9 @@ class Content extends Component<ContentInt> {
           <Home refreshUser={this.props.refreshUser} />
         } />
 
-        <Route path='/profile' render={
-        () => <Profile user={this.props.user} /> } />
+        <Route path='/profile' render={() =>
+          <Profile current={this.props.current} refreshUser={this.props.refreshUser} refreshArtworks={this.props.refreshArtworks} />
+        } />
 
         <Route path='/browse' render={ () =>
            <Browse refreshArtworks={this.props.refreshArtworks}
