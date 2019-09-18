@@ -6,6 +6,7 @@ import { IVendorModel } from "../../interfaces/modelInterfaces";
 import { AddressSchema } from "./address";
 
 dotenv.config();
+
 export const VendorSchema: Schema = new Schema({
   address: AddressSchema,
   appSecretProof: String,
@@ -14,7 +15,6 @@ export const VendorSchema: Schema = new Schema({
   phoneNumber: String,
   pinned: [String],
   website: String,
-  location: {},
 });
 
 VendorSchema.methods.encryptToken = (token: string): string => {

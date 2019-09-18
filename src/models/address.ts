@@ -3,6 +3,7 @@ import { IAddressModel } from "../../interfaces/modelInterfaces";
 
 export const AddressSchema: Schema = new Schema({
   country: String,
+  location: {},
   state: String,
   street: String,
   streetNumber: String,

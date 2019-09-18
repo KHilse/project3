@@ -7,6 +7,7 @@ export interface IAddressModel extends Document {
   streetNumber: string;
   streetSuffix: string;
   zipcode: string;
+  location: {};
 }
 
 export interface IUserModel extends Document {
