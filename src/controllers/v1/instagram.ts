@@ -19,20 +19,6 @@ const getAppSecretProof = (token: string, appSecret: string): string => {
   return sha256.hmac(appSecret, token);
 };
 
-const getAccountMediaIds = async (user, callback) => {
-
-  return await axios.get(BASE_URL +
-                         user.vendor.instagramIdPage +
-                         "/media?access_token=" +
-                         user.vendor.instagramAccessToken)
-    .then((response) => {
-      callback(response);
-    })
-    .catch((err) => {
-      console.log(err, "Error getting media ids");
-    });
-};
-
 const makeApiCall = async (url: string, errorMessage: string, callback) => {
   return  await axios.get(url)
   .then((response) => {
