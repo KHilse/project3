@@ -130,6 +130,7 @@ class Signup extends React.Component<IUserCheck, IState> {
 
     return (
       <form onSubmit={this.handleSignup}>
+        <h1>Sign Up</h1>
         <UserForm recordUser={this.storeInput} newUser={this.state}/>
         <br />
         <div className="isVendor">

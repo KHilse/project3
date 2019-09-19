@@ -59,7 +59,7 @@ const AuthBox = props => {
     }
 
     return (
-      <div className="tabs">
+      <div className="tabs home">
         <div className={classes.root}>
         <ThemeProvider theme={inkline}>
           <AppBar position="static" className="AppBar">

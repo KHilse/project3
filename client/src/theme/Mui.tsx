@@ -13,7 +13,7 @@ const inkline = createMuiTheme({
       light: '#F9F9F9',
       main: '#9C0A02',
       dark: '#9C0A02',
-      contrastText: '#fff',
+      contrastText: '#F9F9F9',
     },
     secondary: {
       main: '#727C82'

@@ -9,21 +9,21 @@ const Nav = props => {
     links = (
       <span>
         <Link to='/logout'>Logout</Link>
+        <Link to='/profile'>Profile</Link>
       </span>
     )
   } else {
-   links = ''
+   links = <Link to='/signup'>Login/Signup</Link>
   }
 
 
   return (
     <div className="navBar">
         <div className="homeNav">
-          <Link to='/'>Home</Link>
+          <Link to='/'>Inkline</Link>
         </div>
         <div className="otherNav">
           <Link to='/browse'>Artworks</Link>
-          <Link to='/profile'>Profile</Link>
           {links}
         </div>
     </div>
