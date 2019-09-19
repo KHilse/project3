@@ -1,10 +1,15 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
 //import Axios from 'axios';
 //import { IUserModel } from '../../../../interfaces/modelInterfaces';
 import Vendors from './Vendors'
 import UserForm from './UserForm'
 import Button from '@material-ui/core/Button';
 
+interface IUserCheck {
+  user: (string | null | undefined),
+  refreshUser();
+}
 
 interface IState {
   firstname: string;
@@ -30,7 +35,7 @@ interface IState {
   };
 }
 
-class Signup extends React.Component<{}, IState> {
+class Signup extends React.Component<IUserCheck, IState> {
   constructor(props) {
     super(props);
 
@@ -77,7 +82,7 @@ class Signup extends React.Component<{}, IState> {
       .then(response => response.json())
       .then(result => {
         console.log(result);
-
+        this.props.refreshUser()
       })
       .catch(err => {
         console.log("ERROR")
@@ -109,6 +114,9 @@ class Signup extends React.Component<{}, IState> {
 
   render() {
     let vendorFields;
+    if (this.props.user) {
+      return(<Redirect to='/browse' />)
+    }
     if (this.state.isVendor) {
       vendorFields = (
         <div>

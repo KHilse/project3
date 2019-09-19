@@ -18,7 +18,7 @@ class Content extends Component<ContentInt> {
     return (
       <div>
         <Route exact path="/" render={ () =>
-          <Home />
+          <Home user={this.props.user} refreshUser={this.props.refreshUser} />
         } />
         <Route path="/profile" render={() =>
           <Profile current={this.props.current}
@@ -37,7 +37,7 @@ class Content extends Component<ContentInt> {
           <Artist id={path.match.params.artistId}/>
         } />
         <Route path="/signup" render={ () =>
-          <Signup refreshUser={this.props.refreshUser} />
+          <Signup user={this.props.user} refreshUser={this.props.refreshUser}/>
         } />
         <Route path="/login" render={ () =>
           <Login refreshUser={this.props.refreshUser}/>
