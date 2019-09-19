@@ -9,7 +9,7 @@ export interface LoginInt {
   refreshUser(),
 }
 
-type ChangeEvent = React.ChangeEvent<HTMLInputElement>
+type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
 export interface FormState {
   user?: (string | null)
