@@ -1,6 +1,10 @@
 import React from 'react'
 //import Axios from 'axios';
 //import { IUserModel } from '../../../../interfaces/modelInterfaces';
+import Vendors from './Vendors'
+import UserForm from './UserForm'
+import Button from '@material-ui/core/Button';
+
 
 interface IState {
   firstname: string;
@@ -55,7 +59,7 @@ class Signup extends React.Component<{}, IState> {
     }
   }
 
-  
+
   handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -73,6 +77,7 @@ class Signup extends React.Component<{}, IState> {
       .then(response => response.json())
       .then(result => {
         console.log(result);
+
       })
       .catch(err => {
         console.log("ERROR")
@@ -107,15 +112,7 @@ class Signup extends React.Component<{}, IState> {
     if (this.state.isVendor) {
       vendorFields = (
         <div>
-          <input name="vendoraddressstreetNumber" type="text" placeholder="Street Number" onChange={this.storeInput} value={this.state.vendor.address.streetNumber} />
-          <input name="vendoraddressstreet" type="text" placeholder="Street Name" onChange={this.storeInput} value={this.state.vendor.address.street} />
-          <input name="vendoraddressstreetSuffix" type="text" placeholder="Street Suffix" onChange={this.storeInput} value={this.state.vendor.address.streetSuffix} />
-          <input name="vendoraddresscity" type="text" placeholder="City" onChange={this.storeInput} value={this.state.vendor.address.city} />
-          <input name="vendoraddressstate" type="text" placeholder="State" onChange={this.storeInput} value={this.state.vendor.address.state} />
-          <input name="vendoraddresscountry" type="text" placeholder="Country" onChange={this.storeInput} value={this.state.vendor.address.country} />
-          <input name="vendoraddresszipcode" type="text" placeholder="Zip Code" onChange={this.storeInput} value={this.state.vendor.address.zipcode} />
-          <input name="vendorphonenumber" type="text" placeholder="Phone Number" onChange={this.storeInput} value={this.state.vendor.phoneNumber} />
-          <input name="vendorwebsite" type="text" placeholder="Website" onChange={this.storeInput} value={this.state.vendor.website} />
+          <Vendors recordVendor={this.storeInput} newVendor={this.state.vendor} />
         </div>
       )
     } else {
@@ -125,15 +122,17 @@ class Signup extends React.Component<{}, IState> {
 
     return (
       <form onSubmit={this.handleSignup}>
-        <input name="firstname" type="text" placeholder="First Name" onChange={this.storeInput} value={this.state.firstname} />
-        <input name="lastname" type="text" placeholder="Last Name" onChange={this.storeInput} value={this.state.lastname} />
-        <input name="email" type="email" placeholder="Email" onChange={this.storeInput} value={this.state.email} />
-        <input name="password" type="password" placeholder="Password" onChange={this.storeInput} value={this.state.password} />
-        <input name="passwordVerify" type="password" placeholder="Confirm Password" onChange={this.storeInput} value={this.state.passwordVerify} />
-        Are you an artist?
-        <input name="isVendor" type="checkbox" onChange={this.storeInput} checked={this.state.isVendor} />
+        <UserForm recordUser={this.storeInput} newUser={this.state}/>
+        <br />
+        <div className="isVendor">
+          <h1 className="Artist" >Are you an artist? <input className="ArtistCheck" name="isVendor" type="checkbox" onChange={this.storeInput} checked={this.state.isVendor} /></h1>
+
+          <br />
+        </div>
         {vendorFields}
-        <input type="submit" value="Sign Up!" />
+        <Button variant="contained" color="secondary" type="submit">
+          Submit
+        </Button>
       </form>
     )
   }

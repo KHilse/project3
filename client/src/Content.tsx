@@ -37,7 +37,7 @@ class Content extends Component<ContentInt> {
           <Artist id={path.match.params.artistId}/>
         } />
         <Route path="/signup" render={ () =>
-          <Signup />
+          <Signup refreshUser={this.props.refreshUser} />
         } />
         <Route path="/login" render={ () =>
           <Login refreshUser={this.props.refreshUser}/>
