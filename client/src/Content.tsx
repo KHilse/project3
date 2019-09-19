@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 
+import Login from "./components/auth/Login";
+import Signup from "./components/auth/Signup";
 import Art from "./components/pages/Art";
 import Artist from "./components/pages/Artist";
 import Browse from "./components/pages/Browse";
@@ -16,7 +18,7 @@ class Content extends Component<ContentInt> {
     return (
       <div>
         <Route exact path="/" render={ () =>
-          <Home refreshUser={this.props.refreshUser}/>
+          <Home />
         } />
         <Route path="/profile" render={() =>
           <Profile current={this.props.current}
@@ -27,12 +29,18 @@ class Content extends Component<ContentInt> {
            <Browse refreshArtworks={this.props.refreshArtworks}
                    artworks={this.props.artworks} />
           } />
-        <Route exact path="/art/:artistId/:postId" render={ (path) =>
+        <Route exact path="/browse/:artistId/:postId" render={ (path) =>
           <Art userId={path.match.params.artistId}
                          postId={path.match.params.postId} />
         } />
-        <Route path="/artist/:id" render={ (path) =>
-          <Artist id={path.match.params.id}/>
+        <Route path="/browse/:artistId" render={ (path) =>
+          <Artist id={path.match.params.artistId}/>
+        } />
+        <Route path="/signup" render={ () =>
+          <Signup />
+        } />
+        <Route path="/login" render={ () =>
+          <Login refreshUser={this.props.refreshUser}/>
         } />
       </div>
     );

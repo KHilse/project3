@@ -1,7 +1,7 @@
 import axios from "axios";
 import crypto from "crypto";
 import dotenv from "dotenv";
-import { Model, model, Schema } from "mongoose";
+import { Document, Model, model, Schema } from "mongoose";
 import { IVendor } from "../../interfaces/modelInterfaces";
 import { AddressSchema, IAddressModel } from "./address";
 

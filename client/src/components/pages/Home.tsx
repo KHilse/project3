@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
 import Login, { LoginInt } from '../auth/Login'
 import Signup from '../auth/Signup';
 
-class Home extends Component <LoginInt> {
+class Home extends Component <{}> {
   render() {
     return (
       <div>
         <h1>Home</h1>
-        <Login refreshUser={this.props.refreshUser}/>
-        <Signup />
       </div>
     )
   }

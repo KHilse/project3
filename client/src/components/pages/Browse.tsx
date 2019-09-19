@@ -34,4 +34,4 @@ const Browse = props => {
     );
 }
 
-export default Browse
+export default Browse;
