@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { AppProps } from '../../react-app-env'
+//import { AppProps } from '../../react-app-env'
 
 export interface LoginInt {
   user?: (string | null),
@@ -47,16 +47,16 @@ class Login extends Component <LoginInt, {}> {
   }
 
   render() {
-    let loginForm;
-    if (this.props.user) {
-     loginForm= (
-      <form onSubmit={this.submitLogin}>
-        <input type="email" placeholder="email" onChange={this.handleChange} name="email" />
-        <input type="password" placeholder="password" onChange={this.handleChange} name="password" />
-        <input type='submit' value='submit' />
-      </form>
-    )
-    }
+    // let loginForm;
+    // if (this.props.user) {
+    //  loginForm= (
+    //   <form onSubmit={this.submitLogin}>
+    //     <input type="email" placeholder="email" onChange={this.handleChange} name="email" />
+    //     <input type="password" placeholder="password" onChange={this.handleChange} name="password" />
+    //     <input type='submit' value='submit' />
+    //   </form>
+    // )
+    // }
     return(
       <div className="login">
       <form onSubmit={this.submitLogin}>

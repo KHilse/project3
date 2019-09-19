@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 
@@ -8,18 +8,18 @@ const Nav = props => {
   if (props.user) {
     links = (
       <span>
-        <Link to='/profile'>Profile</Link>
         <Link to='/logout'>Logout</Link>
       </span>
     )
   } else {
-    let links = ''
+    links = ''
   }
 
 
   return (
     <div className="navBar">
         <span>
+          <Link to='/profile'>Profile</Link>
           <Link to='/browse'>Artworks</Link>
           <Link to='/'>Home</Link>
           {links}

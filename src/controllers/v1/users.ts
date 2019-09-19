@@ -63,18 +63,18 @@ router.get("/:id", (req, res) => {
 // POST /v1/users
 router.post("/", (req, res) => {
 	db.User.create(req.body)
-		.then(newUser => {
-			res.status(201).send(newUser);
-		})
-		.catch(err => {
-			console.log(err.name);
-			console.log(err);
-			if (err.name === 'ValidationError') {
-				res.status(406).send({ message: 'Validation Error' });
-			} else {
-				res.status(503).send({ message: 'Database or server error' });
-			}
-		})
+	.then(newUser => {
+		res.status(201).send(newUser);
+	})
+	.catch(err => {
+		console.log(err.name);
+		if (err.name === 'ValidationError') {
+			console.log("ERROR: validation error while attempting to create user:", err);
+			res.status(406).send({ message: 'Validation Error'});
+		} else {
+			res.status(503).send({ message: 'Database or server error' });
+		}
+	})
 })
 
 router.post("/login", (req, res) => {
