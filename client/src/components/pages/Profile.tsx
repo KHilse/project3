@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
-//import  { IUserModel, IVendorModel }  from '../../../../interfaces/modelInterfaces';
-//import { getThemeProps } from '@material-ui/styles';
+import  { IUserModel, IVendorModel }  from '../../../../interfaces/modelInterfaces';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import { ContentInt } from '../../react-app-env';
+import {Paper, Grid} from '@material-ui/core';
+import Favorites from './Favorites'
+
+
+
 
 class Profile extends Component<ContentInt, { current }> {
   constructor(props) {
@@ -11,6 +16,14 @@ class Profile extends Component<ContentInt, { current }> {
       current: this.props.current,
     }
   }
+ useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      padding: theme.spacing(3, 2),
+    },
+  }),
+);
+
 
   componentDidMount() {
     console.log("CURRENT", this.state.current);
@@ -46,7 +59,7 @@ class Profile extends Component<ContentInt, { current }> {
           <div>
             <p>Favorites</p>
             {this.state.current.favorites.map((favorite: string, i : number) => {
-              return <img key={i} src={favorite} alt="tattoo" /> 
+              return <img key={i} src={favorite} />
               })
             }
           </div>
@@ -81,11 +94,23 @@ class Profile extends Component<ContentInt, { current }> {
 
   render() {
     return (
-      <div>
-        <h1>My Profile</h1>
-        <p>{this.state.current.firstname} {this.state.current.lastname}</p>
-        {this.renderFavorites()}
-        {this.renderVendor()}
+      <div className="profile-box">
+      <Grid container spacing={3}>
+        <Grid item xs={3}>
+          <Paper>
+            <h1>My Profile</h1>
+            <br />
+            <p>{this.state.current.firstname} {this.state.current.lastname}</p>
+            {this.renderVendor()}
+          </Paper>
+        </Grid>
+        <Grid item xs={9}>
+          <div>
+            <Favorites savedPics={this.state.current.favorites} />
+          </div>
+
+        </Grid>
+      </Grid>
       </div>
     )
   }

@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
+import AuthBox from '../auth/AuthBox'
 
-class Home extends Component <{}> {
-  render() {
+const Home = props => {
+
     return (
-      <div>
-        <h1>Home</h1>
+      <div className="home">
+      <AuthBox />
       </div>
     )
-  }
+
 }
 
 export default Home

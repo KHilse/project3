@@ -15,10 +15,10 @@ router.get('/testusers', (req, res) => {
 	let faves: string[] = ['http://placekitten.com/50/50'];
 	let result: {}[] = [];
 
-	for (let i : number = 0; i < 50; i++) {
-		let first : string = firstNames[Math.floor(Math.random()*firstNames.length)];
-		let last : string = lastNames[Math.floor(Math.random()*lastNames.length)];
-		
+	for (var i=0; i < 50; i++) {
+		let first = firstNames[Math.floor(Math.random()*firstNames.length)];
+		let last = lastNames[Math.floor(Math.random()*lastNames.length)];
+
 		console.log(first,last);
 		result.push({
 			firstname: first,
@@ -62,6 +62,7 @@ router.get("/:id", (req, res) => {
 
 // POST /v1/users
 router.post("/", (req, res) => {
+	console.log(req.body);
 	db.User.create(req.body)
 	.then(newUser => {
 		res.status(201).send(newUser);
@@ -72,6 +73,7 @@ router.post("/", (req, res) => {
 			console.log("ERROR: validation error while attempting to create user:", err);
 			res.status(406).send({ message: 'Validation Error'});
 		} else {
+			console.log("ERROR: the database returned an error:", err);
 			res.status(503).send({ message: 'Database or server error' });
 		}
 	})
