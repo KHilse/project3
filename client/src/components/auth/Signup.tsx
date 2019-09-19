@@ -1,13 +1,29 @@
 import React from 'react'
 //import Axios from 'axios';
+//import { IUserModel } from '../../../../interfaces/modelInterfaces';
 
 interface IState {
-  firstname?: string,
-  lastname?: string,
-  email?: string,
-  password?: string,
-  passwordVerify?: string,
-  isVendor?: boolean
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  passwordVerify: string;
+  isVendor: boolean;
+  vendor: {
+    address: {
+      city: string;
+      streetNumber: string;
+      street: string;
+      streetSuffix: string;
+      state: string;
+      country: string;
+      zipcode: string;
+    };
+    instagramAccessToken: string;
+    instagramIdPage: string;
+    phoneNumber: string;
+    website: string;
+  };
 }
 
 interface IProps {}
@@ -22,14 +38,30 @@ class Signup extends React.Component<IProps, IState> {
       email: props.email || '',
       password: props.password || '',
       passwordVerify: props.passwordVerify || '',
-      isVendor: props.isVendor || false
+      isVendor: props.isVendor || true,
+      vendor: props.vendor || {
+        address: {
+          city: '',
+          streetNumber: '',
+          street: '',
+          streetSuffix: '',
+          state: '',
+          country: '',
+          zipcode: '',
+        },
+      instagramAccessToken: '',
+      instagramIdPage: '',
+      phoneNumber: '',
+      website: ''
+      }
     }
   }
 
   handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
- //   let newUser: {} = this.state;
-    let { isVendor, ...newUser } = this.state;
+ 
+    
+    let newUser: {} = this.state;
 
     console.log("NEWUSER:", newUser)
     fetch('http://localhost:3001/v1/users', {
@@ -49,15 +81,46 @@ class Signup extends React.Component<IProps, IState> {
   }
 
 	storeInput = e => {
-      if (e.target.name === 'vendor') {
-        this.setState({[e.target.name]: !e.target.value})
+      if (e.target.name === 'isVendor') {
+        this.setState({ isVendor: !e.target.value })
+      } else if (e.target.name.startsWith('vendoraddress')) {
+        let tempName = e.target.name.slice('vendoraddress'.length);
+        let vendorCopy = JSON.parse(JSON.stringify(this.state.vendor));
+        vendorCopy.address[tempName] = e.target.value;
+        this.setState({ vendor: vendorCopy});
+      } else if (e.target.name.startsWith('vendor')) {
+        let tempName = e.target.name.slice('vendor'.length);
+        let vendorCopy = JSON.parse(JSON.stringify(this.state.vendor));
+        vendorCopy[tempName] = e.target.value;
+        this.setState({ vendor: vendorCopy});
       } else {
-        this.setState({	[e.target.name]: e.target.value	})
+        let tempName = e.target.name;
+        let stateCopy = JSON.parse(JSON.stringify(this.state.vendor));
+        stateCopy[tempName] = e.target.value;
+        this.setState(stateCopy);
       }
 	}
 
 
   render() {
+    let vendorFields;
+    if (this.state.isVendor) {
+      vendorFields = (
+        <div>
+          <input name="vendoraddressstreetNumber" type="text" onChange={this.storeInput} value={this.state.vendor.address.streetNumber} />
+          <input name="vendoraddressstreet" type="text" onChange={this.storeInput} value={this.state.vendor.address.street} />
+          <input name="vendoraddressstreetSuffix" type="text" onChange={this.storeInput} value={this.state.vendor.address.streetSuffix} />
+          <input name="vendoraddresscity" type="text" onChange={this.storeInput} value={this.state.vendor.address.city} />
+          <input name="vendoraddressstate" type="text" onChange={this.storeInput} value={this.state.vendor.address.state} />
+          <input name="vendoraddresscountry" type="text" onChange={this.storeInput} value={this.state.vendor.address.country} />
+          <input name="vendoraddresszipcode" type="text" onChange={this.storeInput} value={this.state.vendor.address.zipcode} />
+        </div>
+      )
+    } else {
+      vendorFields = ( <div></div> );
+    }
+
+
     return(
       <form onSubmit={this.handleSignup}>
         <input name="firstname" type="text" onChange={this.storeInput} value={this.state.firstname} />
@@ -65,7 +128,8 @@ class Signup extends React.Component<IProps, IState> {
         <input name="email" type="email" onChange={this.storeInput} value={this.state.email} />
         <input name="password" type="password" onChange={this.storeInput} value={this.state.password} />
         <input name="passwordVerify" type="password" onChange={this.storeInput} value={this.state.passwordVerify} />
-        <input name="vendor" type="checkbox" onChange={this.storeInput} checked={this.state.isVendor} />
+        <input name="isVendor" type="checkbox" onChange={this.storeInput} checked={this.state.isVendor} />
+        {vendorFields}
         <input type="submit" value="Sign Up!" />
       </form>
     )
