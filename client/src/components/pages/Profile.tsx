@@ -1,8 +1,4 @@
-import React, { Component } from 'react'
-<<<<<<< Updated upstream
-=======
-//import  { IUser, IVendor }  from '../../../../interfaces/modelInterfaces';
->>>>>>> Stashed changes
+import React, { Component } from 'react';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import { ContentInt } from '../../react-app-env';
 import {Paper, Grid} from '@material-ui/core';
