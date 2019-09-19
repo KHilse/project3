@@ -1,7 +1,12 @@
 import bcrypt from "bcryptjs";
-import { Model, model, Schema } from "mongoose";
-import { IUserModel } from "../../interfaces/modelInterfaces";
-import { VendorSchema } from "./vendor";
+import { Document, Model, model, Schema } from "mongoose";
+import { IUser } from "../../interfaces/modelInterfaces";
+import { IVendorModel, VendorSchema } from "./vendor";
+
+export interface IUserModel extends Document, IUser {
+  vendor: IVendorModel;
+  isAuthenticated(): boolean;
+}
 
 export const UserSchema = new Schema({
   email: {

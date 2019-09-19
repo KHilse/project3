@@ -40,7 +40,6 @@ class Art extends Component<IPostContainerProps, IPostContainerState> {
               "/" +
               this.props.postId)
     .then((response) => {
-      console.log(response.data)
       this.setState({
         artistInstagram: "",
         artistName: "",

@@ -2,8 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import dotenv from "dotenv";
 import express, { Request, Response, Router } from "express";
 import { sha256 } from "js-sha256";
-import { IUserModel } from "../../../interfaces/modelInterfaces";
-import { User } from "../../models";
+import { IUserModel, User } from "../../models";
 
 const router: Router = express.Router();
 dotenv.config();

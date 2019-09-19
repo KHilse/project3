@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken'
 dotenv.config();
 let db = require('../../models');
-import { IUserModel, IVendorModel } from '../../../interfaces/modelInterfaces';
+import { IUserModel, IVendorModel } from '../../models';
 import { UserSchema } from '../../models/user';
 
 // TEST ROUTE
