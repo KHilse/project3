@@ -143,27 +143,27 @@ router.delete("/:id", (req, res) => {
 		})
 })
 
-// GET FAVORITES /v1/users/:id/favorites
-router.get('/:id/favorites', (req, res) => {
+// GET FAVORITE ARTISTS /v1/users/favoriteArtists
+router.get('/:id/favoriteArtists', (req, res) => {
 	db.User.findById(req.params.id)
 		.then(user => {
-			res.status(200).send(user.favorites);
+			res.status(200).send(user.favoriteArtists);
 		})
 		.catch(err => {
 			console.log(err);
 			res.status(500).send({ message: 'Server error while attempting to find a user' });
 		})
-})
+});
 
-// POST FAVORITES /v1/users/:id/favorites/add
-router.post('/:id/favorites/add', (req, res) => {
+// POST FAVORITES ARTISTS /v1/users/:id/favoriteArtists/add
+router.post('/:id/favoriteArtists/add', (req, res) => {
 	db.User.findById(req.params.id)
 	.then(user => {
 		if (user) {
-			let faves : string[] = user.favorites;
+			let faves: [{artistId: string, postId: string}] = user.favoriteWorks;
 			faves.push(req.body.newFave);
-			db.User.update({
-				favorites: faves
+			user.updateOne({
+				favoriteWorks: faves
 			})
 			.then(result => {
 				res.status(200).send(result);
@@ -180,28 +180,28 @@ router.post('/:id/favorites/add', (req, res) => {
 		console.log(err);
 		res.status(500).send({ message: 'Server error while attempting to find a user'});
 	})
-})
+});
 
-// DELETE FAVORITES /v1/users/:id/favorites/remove
-router.delete('/:id/favorites/remove', (req, res) => {
+// DELETE FAVORITES ARTISTS /v1/users/:id/favoritesArtists/remove
+router.delete('/:id/favoriteArtists/remove', (req, res) => {
 	db.User.findById(req.params.id)
 		.then(user => {
-			let faves: string[] = user.favorites;
+			let faves: string[] = user.favoriteArtists;
 			let item: string = req.body.removePost;
 			let itemIndex: number = faves.indexOf(item);
 			if (itemIndex > -1) {
 				faves.splice(itemIndex, 1);
-				db.User.update({
-					favorites: faves
+				user.updateOne({
+					favoriteWorks: faves
 				})
-					.then(result => {
-						res.status(200).send(result);
-					})
-					.catch(err => {
-						console.log(err);
-						res.status(500).send({ message: 'Server error while attempting to add a favorite' });
-					})
-			} else {
+				.then(result => {
+					res.status(200).send(result);
+				})
+				.catch(err => {
+					console.log(err);
+					res.status(500).send({ message: 'Server error while attempting to add a favorite' });
+				})
+			}  else {
 				res.status(500).send({ message: 'Couldn\'t find favorite to remove' });
 			}
 		})
@@ -209,7 +209,76 @@ router.delete('/:id/favorites/remove', (req, res) => {
 			console.log(err);
 			res.status(500).send({ message: 'Server error while attempting to find a user' });
 		})
-})
+});
+
+// GET FAVORITE WORKS /v1/users/:id/favoriteWorks
+router.get('/:id/favoriteWorks', (req, res) => {
+	db.User.findById(req.params.id)
+		.then(user => {
+			res.status(200).send(user.favoriteWorks);
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).send({ message: 'Server error while attempting to find a user' });
+		})
+});
+
+// POST FAVORITE WORKS /v1/users/:id/favoriteWorks/add
+router.post('/:id/favoriteWorks/add', (req, res) => {
+	db.User.findById(req.params.id)
+	.then(user => {
+		if (user) {
+			let faves: [{artistId: string, postId: string}] = user.favoriteWorks;
+			faves.push(req.body.newFave);
+			user.updateOne({
+				favoriteWorks: faves
+			})
+			.then(result => {
+				res.status(200).send(result);
+			})
+			.catch(err => {
+				console.log(err);
+				res.status(500).send({ message: 'Server error while attempting to add a favorite'});
+			})
+		} else {
+			res.status(500).send({ message: 'User not found for adding favorites'});
+		}
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).send({ message: 'Server error while attempting to find a user'});
+	})
+});
+
+// DELETE FAVORITE WORKS /v1/users/:id/favoriteWorks/remove
+router.delete('/:id/favoriteWorks/remove', (req, res) => {
+	db.User.findById(req.params.id)
+		.then(user => {
+			let faves: [{artistId: string, postId: string}] = user.favoriteWorks;
+			let item: string = req.body.removePost;
+			for (let i = 0; i < faves.length; i++) {
+				if (faves[i].postId === item) {
+					faves.splice(i, 1);
+				} else {
+					res.status(500).send({ message: 'Couldn\'t find favorite to remove' });
+				}
+			}
+			user.updateOne({
+				favoriteWorks: faves
+			})
+				.then(result => {
+					res.status(200).send(result);
+				})
+				.catch(err => {
+					console.log(err);
+					res.status(500).send({ message: 'Server error while attempting to add a favorite' });
+				})
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).send({ message: 'Server error while attempting to find a user' });
+		})
+});
 
 // GET PINNED /v1/users/:id/pinned
 router.get('/:id/pinned', (req, res) => {
@@ -230,7 +299,7 @@ router.post('/:id/pinned/add', (req, res) => {
 		if (user) {
 			let pins : string[] = user.vendor.pinned;
 			pins.push(req.body.newFave);
-			db.User.update({
+			user.updateOne({
 				vendor: {
 					pinned: pins
 				}
@@ -261,7 +330,7 @@ router.delete('/:id/pinned/remove', (req, res) => {
 			let itemIndex: number = pins.indexOf(item);
 			if (itemIndex > -1) {
 				pins.splice(itemIndex, 1);
-				db.User.update({
+				user.updateOne({
 					vendor: {
 						pinned: pins
 					}
