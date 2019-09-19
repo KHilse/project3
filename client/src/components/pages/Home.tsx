@@ -1,17 +1,14 @@
-import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import React from 'react';
+import AuthBox from '../auth/AuthBox'
 
-import Login, { LoginInt } from '../auth/Login'
-import Signup from '../auth/Signup';
+const Home = props => {
 
-class Home extends Component <{}> {
-  render() {
     return (
-      <div>
-        <h1>Home</h1>
+      <div className="home">
+      <AuthBox />
       </div>
     )
-  }
+
 }
 
 export default Home

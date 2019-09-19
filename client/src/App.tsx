@@ -27,6 +27,7 @@ class App extends Component<AppProps, {}> {
     this.getArtworks()
   }
 
+
   getUser = () => {
     //see if theres a token
     let token = localStorage.getItem('mernToken')

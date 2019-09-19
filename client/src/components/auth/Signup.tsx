@@ -55,6 +55,7 @@ class Signup extends React.Component<{}, IState> {
     }
   }
 
+  
   handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
