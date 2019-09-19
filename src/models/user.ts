@@ -20,7 +20,8 @@ export const UserSchema = new Schema({
       },
     },
   },
-  favorites: [String],
+  favoriteArtists: [String],
+  favoriteWorks: [{artistId: String, postId: String}],
   firstname: {
     minlength: 2,
     required: true,

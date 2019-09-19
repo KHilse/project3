@@ -12,6 +12,7 @@ export interface IVendorModel extends Document, IVendor {
   appSecretProof: string;
   decryptToken(token: string): string;
   encryptToken(token: string): string;
+  getLongLivedToken(appId: string, appSecret: string, token: string): string;
 }
 
 export const VendorSchema: Schema = new Schema({
@@ -23,6 +24,23 @@ export const VendorSchema: Schema = new Schema({
   phoneNumber: String,
   pinned: [String],
   website: String,
+});
+
+VendorSchema.pre<IVendorModel>("save", async function(next) {
+  console.log(this.instagramAccessToken)
+  if (process.env.APP_ID && process.env.APP_SECRET) {
+    const url = `https://graph.facebook.com/v4.0/oauth/access_token?grant_type=fb_exchange_token&client_id=${process.env.APP_ID}&client_secret=${process.env.APP_SECRET}&fb_exchange_token=${this.instagramAccessToken}`;
+    await axios.get(url)
+    .then((response) => {
+      console.log(response.data.access_token)
+      this.instagramAccessToken = this.encryptToken(response.data.access_token);
+      console.log(this.instagramAccessToken)
+    })
+    .catch((err) => {
+      console.log(err, "Error getting long-lived token");
+    });
+    next();
+  }
 });
 
 VendorSchema.methods.encryptToken = (token: string): string => {
