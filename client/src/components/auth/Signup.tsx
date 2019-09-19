@@ -26,9 +26,7 @@ interface IState {
   };
 }
 
-interface IProps {}
-
-class Signup extends React.Component<IProps, IState> {
+class Signup extends React.Component<{}, IState> {
   constructor(props) {
     super(props);
 
@@ -49,18 +47,18 @@ class Signup extends React.Component<IProps, IState> {
           country: '',
           zipcode: '',
         },
-      instagramAccessToken: '',
-      instagramIdPage: '',
-      phoneNumber: '',
-      website: ''
+        instagramAccessToken: '',
+        instagramIdPage: '',
+        phoneNumber: '',
+        website: ''
       }
     }
   }
 
   handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
- 
-    
+
+
     let newUser: {} = this.state;
 
     console.log("NEWUSER:", newUser)
@@ -71,13 +69,13 @@ class Signup extends React.Component<IProps, IState> {
         'Content-Type': 'application/json'
       }
     })
-    .then(response => response.json())
-    .then(result => {
-      console.log(result);
-    })
-    .catch(err => {
-      console.log("ERROR")
-    })
+      .then(response => response.json())
+      .then(result => {
+        console.log(result);
+      })
+      .catch(err => {
+        console.log("ERROR")
+      })
   }
 
 	storeInput = e => {
@@ -120,11 +118,11 @@ class Signup extends React.Component<IProps, IState> {
         </div>
       )
     } else {
-      vendorFields = ( <div></div> );
+      vendorFields = (<div></div>);
     }
 
 
-    return(
+    return (
       <form onSubmit={this.handleSignup}>
         <input name="firstname" type="text" placeholder="First Name" onChange={this.storeInput} value={this.state.firstname} />
         <input name="lastname" type="text" placeholder="Last Name" onChange={this.storeInput} value={this.state.lastname} />
@@ -140,4 +138,4 @@ class Signup extends React.Component<IProps, IState> {
   }
 }
 
-export default Signup
+export default Signup;

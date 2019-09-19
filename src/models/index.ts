@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
-import { User } from "./user";
+import { Address, IAddressModel } from "./address";
+import { IUserModel, User } from "./user";
+import { IVendorModel, Vendor } from "./vendor";
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/InkTrail", {
   useCreateIndex: true,
@@ -7,4 +9,4 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/InkTrail", {
   useUnifiedTopology: true,
 });
 
-export { User };
+export { Address, IAddressModel, IUserModel, IVendorModel, User, Vendor };

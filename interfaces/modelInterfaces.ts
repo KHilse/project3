@@ -1,9 +1,7 @@
-import { Document } from "mongoose";
-
-export interface IAddressModel extends Document {
+export interface IAddress {
   city: string;
   country: string;
-  location: {};
+  geoLocation: {};
   state: string;
   street: string;
   streetNumber: string;
@@ -11,25 +9,21 @@ export interface IAddressModel extends Document {
   zipcode: string;
 }
 
-export interface IUserModel extends Document {
+export interface IUser {
   email: string;
   favorites: string[];
   firstname: string;
   lastname: string;
   password: string;
-  vendor: IVendorModel;
-  isAuthenticated(): boolean;
+  vendor: IVendor;
 }
 
-export interface IVendorModel extends Document {
-  address: IAddressModel;
-  appSecretProof: string;
+export interface IVendor {
+  address: IAddress;
   businessName: string;
   instagramAccessToken: string;
   instagramIdPage: string;
   phoneNumber: string;
   pinned: string[];
   website: string;
-  decryptToken(token: string): string;
-  encryptToken(token: string): string;
 }
