@@ -1,9 +1,6 @@
-import React, {Component} from 'react'
-import axios from 'axios'
+import React from 'react'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -31,6 +28,7 @@ const Test = props => {
   let styles : any = useStyles();
   return(
     <div className="formTemp">
+    <h1>Login</h1>
       <form>
         <TextField
           id="filled-email-input"
@@ -50,9 +48,11 @@ const Test = props => {
           margin="normal"
         />
         <br />
+        <div className="subButton">
           <Button variant="contained" color="secondary" >
           Submit
           </Button>
+        </div>
         <br />
       </form>
     </div>

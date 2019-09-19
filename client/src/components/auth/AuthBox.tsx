@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
+
 const AuthBox = props => {
   const classes = useStyles();
     const [value, setValue] = React.useState(0);

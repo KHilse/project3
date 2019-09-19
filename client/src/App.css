@@ -1,6 +1,7 @@
 
 
 body {
+  margin-top: 50px;
   text-align: center;
   font-family: 'Raleway', sans-serif;
   height: 100vh;
@@ -20,16 +21,35 @@ body {
 }
 
 .navBar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   position: fixed;
   top: 0;
   width:100%;
   z-index: 1;
   padding: 15px 0;
   background-color: #F9F9F9;
+}
+
+.homeNav {
+  float:left;
+  padding-left: 20px;
+}
+
+a, a:visited {
+  font-family: 'Alfa Slab One', cursive;
+  color: #BB9B8B;
+  text-emphasis: bold;
+  text-decoration: none;
+  padding-right: 10px;
+}
+
+.otherNav {
+  padding-right: 20px;
+  float: right;
+  text-decoration: none;
+}
+
+.subButton {
+  padding-top: 25px;
 }
 
 .footer{
@@ -67,6 +87,7 @@ label {
 
 h1 {
   font-family: 'Alfa Slab One', cursive;
+  color: #727C82
 }
 
 .arrow {
@@ -74,11 +95,15 @@ h1 {
 }
 
 .tabs {
-  margin-top: 50px;
   border: 2px solid #9C0A02;
 }
 
 .AppBar {
   color: #9C0A02;
   background-color: #9C0A02;
+}
+
+.profile-box {
+  margin: 20px;
+
 }

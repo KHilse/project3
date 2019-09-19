@@ -12,18 +12,20 @@ const Nav = props => {
       </span>
     )
   } else {
-    let links = ''
+   links = ''
   }
 
 
   return (
     <div className="navBar">
-        <span>
-          <Link to='/profile'>Profile</Link>
-          <Link to='/browse'>Artworks</Link>
+        <div className="homeNav">
           <Link to='/'>Home</Link>
+        </div>
+        <div className="otherNav">
+          <Link to='/browse'>Artworks</Link>
+          <Link to='/profile'>Profile</Link>
           {links}
-        </span>
+        </div>
     </div>
   )
 }

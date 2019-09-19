@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-
-import { ContentInt } from '../../react-app-env'
+import GridList from '@material-ui/core/GridList';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

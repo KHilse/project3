@@ -38,8 +38,6 @@ class Login extends Component <LoginInt, {}> {
     .catch(err => {
       console.dir(err)
     })
-
-
   }
 
   handleChange = (e: ChangeEvent) => {
@@ -59,11 +57,11 @@ class Login extends Component <LoginInt, {}> {
     }
     return(
       <div className="login">
-      <form onSubmit={this.submitLogin}>
-        <input type="email" placeholder="email" onChange={this.handleChange} name="email" />
-        <input type="password" placeholder="password" onChange={this.handleChange} name="password" />
-        <input type='submit' value='submit' />
-      </form>
+        <form onSubmit={this.submitLogin}>
+          <input type="email" placeholder="email" onChange={this.handleChange} name="email" />
+          <input type="password" placeholder="password" onChange={this.handleChange} name="password" />
+          <input type='submit' value='submit' />
+        </form>
       </div>
     )
   }
