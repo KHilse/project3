@@ -14,8 +14,10 @@ app.use(cors());
 dotenv.config();
 
 // Controllers
+import instagram from "./controllers/v1/instagram";
 import users from "./controllers/v1/users";
 app.use("/v1/users", users);
+app.use("/v1/instagram", instagram);
 
 // 404 Catch-all route
 app.get("*", (req, res) => {
