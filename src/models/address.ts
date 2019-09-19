@@ -2,7 +2,9 @@ import { Model, model, Schema } from "mongoose";
 import { IAddressModel } from "../../interfaces/modelInterfaces";
 
 export const AddressSchema: Schema = new Schema({
+  city: String,
   country: String,
+  location: {},
   state: String,
   street: String,
   streetNumber: String,

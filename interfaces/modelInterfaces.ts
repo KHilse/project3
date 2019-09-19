@@ -1,7 +1,9 @@
 import { Document } from "mongoose";
 
 export interface IAddressModel extends Document {
+  city: string;
   country: string;
+  location: {};
   state: string;
   street: string;
   streetNumber: string;
@@ -21,10 +23,13 @@ export interface IUserModel extends Document {
 
 export interface IVendorModel extends Document {
   address: IAddressModel;
+  appSecretProof: string;
+  businessName: string;
   instagramAccessToken: string;
   instagramIdPage: string;
   phoneNumber: string;
+  pinned: string[];
   website: string;
-  decryptToken(): string;
-  encryptToken(): string;
+  decryptToken(token: string): string;
+  encryptToken(token: string): string;
 }
