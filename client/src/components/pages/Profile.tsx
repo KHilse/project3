@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import  { IUserModel, IVendorModel }  from '../../../../interfaces/modelInterfaces';
-import { getThemeProps } from '@material-ui/styles';
+//import  { IUserModel, IVendorModel }  from '../../../../interfaces/modelInterfaces';
+//import { getThemeProps } from '@material-ui/styles';
 import { ContentInt } from '../../react-app-env';
 
 class Profile extends Component<ContentInt, { current }> {
@@ -46,7 +46,7 @@ class Profile extends Component<ContentInt, { current }> {
           <div>
             <p>Favorites</p>
             {this.state.current.favorites.map((favorite: string, i : number) => {
-              return <img key={i} src={favorite} /> 
+              return <img key={i} src={favorite} alt="tattoo" /> 
               })
             }
           </div>
@@ -68,13 +68,12 @@ class Profile extends Component<ContentInt, { current }> {
           <p>{this.state.current.vendor.phoneNumber}</p>
           <p>{this.state.current.vendor.website}</p>
           <p>Pinned Instagram Posts</p>
-          <img src={this.state.current.vendor.pinned[0]} />
+          <img src={this.state.current.vendor.pinned[0]} alt="tattoo" />
         </div>
       )
     } else {
       return (
         <div>
-          <h1></h1>
         </div>
       )
     }

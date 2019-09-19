@@ -69,6 +69,7 @@ router.post("/", (req, res) => {
 	.catch(err => {
 		console.log(err.name);
 		if (err.name === 'ValidationError') {
+			console.log("ERROR: validation error while attempting to create user:", err);
 			res.status(406).send({ message: 'Validation Error'});
 		} else {
 			res.status(503).send({ message: 'Database or server error' });
