@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import  { IUserModel, IVendorModel }  from '../../../../interfaces/modelInterfaces';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import { ContentInt } from '../../react-app-env';
 import {Paper, Grid} from '@material-ui/core';

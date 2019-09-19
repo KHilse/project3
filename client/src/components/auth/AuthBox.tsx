@@ -72,7 +72,7 @@ const AuthBox = props => {
             <Test />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <Signup />
+            <Signup user={props.user} refreshUser={props.refreshUser}/>
           </TabPanel>
           </ThemeProvider>
         </div>
