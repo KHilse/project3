@@ -1,17 +1,45 @@
 import axios from "axios";
 import React, { Component } from "react";
 
-class Artist extends Component {
+import Contact from "../Interactive/Contact";
+import Map from "../Interactive/Map";
+import Pinned from "../Interactive/Pinned";
+
+import BASE_URL from "../../const";
+
+interface IArtistProps {
+  artistId: string;
+}
+
+interface IArtistState {
+  address: {};
+  businessName: string;
+  contactInfo: {
+    email: string;
+    instagramIdPage: string;
+    name: string;
+    phoneNumber: string;
+    website: string;
+  };
+  id: string;
+  pinned: [];
+}
+
+class ArtistPage extends Component<IArtistProps, IArtistState> {
   constructor(props) {
     super(props);
     this.state = {
       address: {},
-      email: "",
-      instagramIdPage: "",
-      name: "",
-      phoneNumber: "",
-      pinned: "",
-      website: "",
+      businessName: "",
+      contactInfo: {
+        email: "",
+        instagramIdPage: "",
+        name: "",
+        phoneNumber: "",
+        website: "",
+      },
+      id: "",
+      pinned: [],
     };
   }
 
@@ -21,24 +49,30 @@ class Artist extends Component {
       const data = response.data.message;
       this.setState({
         address: data.vendor.address,
-        email: data.email,
-        instagramIdPage: data.vendor.instagramIdPage,
-        name: data.name,
-        phoneNumber: data.vendor.phoneNumber,
+        businessName: data.vendor.businessName,
+        contactInfo: {
+          email: data.email,
+          instagramIdPage: data.vendor.instagramIdPage,
+          name: data.name,
+          phoneNumber: data.vendor.phoneNumber,
+          website: data.vendor.website,
+        },
+        id: data.id,
         pinned: data.vendor.pinned,
-        website: data.vendor.website,
       });
-    })
-    .catch();
+    });
   }
 
   public render() {
     return(
       <div>
-        This is a stub for looking at an Artist page (user side)
+        <h4>{this.state.businessName}</h4>
+        <Pinned pinned={this.state.pinned} userId={this.state.id}/>
+        <Contact contactInfo={this.state.contactInfo}/>
+        <Map address={this.state.address}/>
       </div>
     );
   }
 }
 
-export default Artist;
+export default ArtistPage;
