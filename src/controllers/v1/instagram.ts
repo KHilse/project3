@@ -2,8 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import dotenv from "dotenv";
 import express, { Request, Response, Router } from "express";
 import { sha256 } from "js-sha256";
-import { IUserModel } from "../../../interfaces/modelInterfaces";
-import { User } from "../../models";
+import { IUserModel, User } from "../../models";
 
 const router: Router = express.Router();
 dotenv.config();
@@ -48,14 +47,12 @@ const getAllInstagramPosts = async (req: Request, res: Response) => {
       return response.data.data;
     });
     postPromises = postIdList.map(async (post) => {
-      console.log(post);
       // tslint:disable-next-line: max-line-length
       const mediaDataURL = BASE_URL + post.id + "?fields=id,media_type,media_url,timestamp&access_token=" + accessToken + "&appsecret_proof=" + user.vendor.appSecretProof;
       return makeApiCall(mediaDataURL, "Error getting Media data", (response) => response.data);
     });
   }
   const postsArray: any[] = [];
-  console.log(postPromises);
   axios.all(postPromises)
   .then(axios.spread((...posts) => {
     for (const post of posts) {

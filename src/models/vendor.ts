@@ -1,11 +1,18 @@
 import axios from "axios";
 import crypto from "crypto";
 import dotenv from "dotenv";
-import { Model, model, Schema } from "mongoose";
-import { IVendorModel } from "../../interfaces/modelInterfaces";
-import { AddressSchema } from "./address";
+import { Document, Model, model, Schema } from "mongoose";
+import { IVendor } from "../../interfaces/modelInterfaces";
+import { AddressSchema, IAddressModel } from "./address";
 
 dotenv.config();
+
+export interface IVendorModel extends Document, IVendor {
+  address: IAddressModel;
+  appSecretProof: string;
+  decryptToken(token: string): string;
+  encryptToken(token: string): string;
+}
 
 export const VendorSchema: Schema = new Schema({
   address: AddressSchema,

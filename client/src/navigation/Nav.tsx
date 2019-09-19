@@ -12,7 +12,12 @@ const Nav = props => {
       </span>
     )
   } else {
-    links = ''
+    links = (
+      <span>
+        <Link to="/login">Login</Link>
+        <Link to="/signup">Signup</Link>
+      </span>
+    )
   }
 
 

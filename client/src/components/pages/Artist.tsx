@@ -6,26 +6,9 @@ import Map from "../Interactive/Map";
 import Pinned from "../Interactive/Pinned";
 
 import BASE_URL from "../../const";
+import { IArtistProps, IArtistState} from "../../react-app-env";
 
-interface IArtistProps {
-  artistId: string;
-}
-
-interface IArtistState {
-  address: {};
-  businessName: string;
-  contactInfo: {
-    email: string;
-    instagramIdPage: string;
-    name: string;
-    phoneNumber: string;
-    website: string;
-  };
-  id: string;
-  pinned: [];
-}
-
-class ArtistPage extends Component<IArtistProps, IArtistState> {
+class Artist extends Component<IArtistProps, IArtistState> {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,22 +21,22 @@ class ArtistPage extends Component<IArtistProps, IArtistState> {
         phoneNumber: "",
         website: "",
       },
-      id: "",
+      id: "5d8154419d1b4a5f2c3b4564",
       pinned: [],
     };
   }
 
   public componentDidMount() {
-    axios.get(BASE_URL + "/v1/users" + this.props.artistId)
+    axios.get(BASE_URL + "/v1/users/" + this.props.id)
     .then((response) => {
-      const data = response.data.message;
+      const data = response.data;
       this.setState({
         address: data.vendor.address,
         businessName: data.vendor.businessName,
         contactInfo: {
           email: data.email,
           instagramIdPage: data.vendor.instagramIdPage,
-          name: data.name,
+          name: data.firstname + " " + data.lastname,
           phoneNumber: data.vendor.phoneNumber,
           website: data.vendor.website,
         },
@@ -66,13 +49,12 @@ class ArtistPage extends Component<IArtistProps, IArtistState> {
   public render() {
     return(
       <div>
-        <h4>{this.state.businessName}</h4>
+        <h4>{this.state.businessName || "Unavailable"}</h4>
         <Pinned pinned={this.state.pinned} userId={this.state.id}/>
         <Contact contactInfo={this.state.contactInfo}/>
-        <Map address={this.state.address}/>
       </div>
     );
   }
 }
 
-export default ArtistPage;
+export default Artist;

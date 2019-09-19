@@ -31,3 +31,21 @@ export interface ITest {
   albumId: number,
 
 }
+
+export interface IArtistProps {
+  id: string;
+}
+
+export interface IArtistState {
+  address: {};
+  businessName: string;
+  contactInfo: {
+    email: string;
+    instagramIdPage: string;
+    name: string;
+    phoneNumber: string;
+    website: string;
+  };
+  id: string;
+  pinned: [];
+}
