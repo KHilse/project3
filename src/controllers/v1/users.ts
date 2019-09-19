@@ -62,7 +62,6 @@ router.get("/:id", (req, res) => {
 
 // POST /v1/users
 router.post("/", (req, res) => {
-	console.log(req.body);
 	db.User.create(req.body)
 	.then(newUser => {
 		res.status(201).send(newUser);
