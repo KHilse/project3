@@ -34,9 +34,12 @@ export interface ITest {
 
 export interface IArtistProps {
   id: string;
+  user?: (string | null);
+  refreshUser();
 }
 
 export interface IArtistState {
+  current?: (string | null);
   address: {};
   businessName: string;
   contactInfo: {

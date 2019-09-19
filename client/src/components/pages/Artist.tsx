@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { Component } from "react";
 
 import Contact from "../Interactive/Contact";
-import Map from "../Interactive/Map";
+//import Map from "../Interactive/Map";
 import Pinned from "../Interactive/Pinned";
 
 import BASE_URL from "../../const";
@@ -22,7 +22,7 @@ class Artist extends Component<IArtistProps, IArtistState> {
         website: "",
       },
       id: "5d8154419d1b4a5f2c3b4564",
-      pinned: [],
+      pinned: [], 
     };
   }
 
