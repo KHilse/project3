@@ -14,6 +14,7 @@ interface IPostContainerState {
   artistName: string;
   caption: string;
   id: string;
+  isFavorite: boolean;
   mediaType: string;
   mediaUrl: string;
   timestamp: string;
@@ -27,6 +28,7 @@ class PostContainer extends Component<IPostContainerProps, IPostContainerState> 
       artistName: "",
       caption: "",
       id: "",
+      isFavorite: false,
       mediaType: "",
       mediaUrl: "",
       timestamp: "",
@@ -34,22 +36,52 @@ class PostContainer extends Component<IPostContainerProps, IPostContainerState> 
   }
 
   public componentDidMount() {
-    axios.get(BASE_URL +
-              "/v1/instagram/user/" +
-              this.props.userId +
-              this.props.postId)
-    .then((response) => {
+    axios.get(BASE_URL + "/v1/users" + this.props.userId)
+    .then(user => {
+      let isFavorite: boolean;
+      if (user.data.favoriteWorks.indexOf(this.props.postId) >= 0) {
+        this.setState({ isFavorite: true } );
+      } else {
+        this.setState({ isFavorite: false } );
+      }     
+      axios.get(BASE_URL +
+        "/v1/instagram/user/" +
+        this.props.userId +
+        this.props.postId)
+      .then((response) => {
       return response.data.message;
-    })
-    .catch((err) => {
+      })
+      .catch((err) => {
       console.log(err, "Error getting Post");
-    });
+      });
+    })
+  }
+
+  handlePostFavorite(e): void {
+    axios.get(BASE_URL + '/v1/users/' + this.props.userId)
+    .then(response => {
+      if (this.state.isFavorite) {
+        response.data.favoriteWorks.push(e.target.id);
+      } else {
+        response.data.favoriteWorks.splice(response.data.favoriteWorks.indexOf(e.target.id), 1);
+      }
+      axios.put(BASE_URL + '/v1/users/' + this.props.userId, {
+        favoriteWorks: response.data.favoriteWorks 
+      })
+      .then(result => {
+      })
+      .catch(err => {
+        console.log('ERROR updating favorites', err);
+      })
+    })
   }
 
   public render() {
     return(
       <div>
         <Post id={this.state.id}
+              handlePostFavorite={this.handlePostFavorite}
+              isFavorite={this.state.isFavorite}
               mediaType={this.state.mediaType}
               mediaUrl={this.state.mediaUrl}
         />

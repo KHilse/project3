@@ -11,7 +11,8 @@ export interface IAddress {
 
 export interface IUser {
   email: string;
-  favorites: string[];
+  favoriteArtists: string[];
+  favoriteWorks: [{artistId: string, postId: string}];
   firstname: string;
   lastname: string;
   password: string;
