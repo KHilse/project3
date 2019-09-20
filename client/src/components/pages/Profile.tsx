@@ -11,7 +11,7 @@ class Profile extends Component<ContentInt, { current }> {
       padding: theme.spacing(3, 2),
     },
   }),
-);
+ );
   constructor(props) {
     super(props);
 
