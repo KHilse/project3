@@ -101,8 +101,9 @@ class Signup extends React.Component<IUserCheck, IState> {
     })
       .then(response => response.json())
       .then(result => {
-        console.log(result);
+        console.log('Signup success!', result);
         this.props.refreshUser()
+        this.render();
       })
       .catch(err => {
         console.log("ERROR")
@@ -132,9 +133,9 @@ class Signup extends React.Component<IUserCheck, IState> {
     }
   }
 
-
   render() {
     let vendorFields;
+    console.log('this.props.user', this.props.user);
     if (this.props.user) {
       return (<Redirect to='/browse' />)
     }
