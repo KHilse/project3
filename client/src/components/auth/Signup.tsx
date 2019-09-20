@@ -111,30 +111,26 @@ class Signup extends React.Component<IUserCheck, IState> {
 
 
   storeInput = e => {
-    console.log(e)
+    console.log(e.target.name, e.target.value, e.target.checked);
+    if (e.target.name === 'isVendor') {
+      this.setState({ isVendor: !this.state.isVendor })
+    } else if (e.target.name.startsWith('vendoraddress')) {
+      let tempName = e.target.name.slice('vendoraddress'.length);
+      let vendorCopy = JSON.parse(JSON.stringify(this.state.vendor));
+      vendorCopy.address[tempName] = e.target.value;
+      this.setState({ vendor: vendorCopy });
+    } else if (e.target.name.startsWith('vendor')) {
+      let tempName = e.target.name.slice('vendor'.length);
+      let vendorCopy = JSON.parse(JSON.stringify(this.state.vendor));
+      vendorCopy[tempName] = e.target.value;
+      this.setState({ vendor: vendorCopy });
+    } else {
+      let tempName = e.target.name;
+      let stateCopy = JSON.parse(JSON.stringify(this.state.vendor));
+      stateCopy[tempName] = e.target.value;
+      this.setState(stateCopy);
+    }
   }
-
-  // storeInput = e => {
-  //   console.log(e.target.name, e.target.value, e.target.checked);
-  //   if (e.target.name === 'isVendor') {
-  //     this.setState({ isVendor: !this.state.isVendor })
-  //   } else if (e.target.name.startsWith('vendoraddress')) {
-  //     let tempName = e.target.name.slice('vendoraddress'.length);
-  //     let vendorCopy = JSON.parse(JSON.stringify(this.state.vendor));
-  //     vendorCopy.address[tempName] = e.target.value;
-  //     this.setState({ vendor: vendorCopy });
-  //   } else if (e.target.name.startsWith('vendor')) {
-  //     let tempName = e.target.name.slice('vendor'.length);
-  //     let vendorCopy = JSON.parse(JSON.stringify(this.state.vendor));
-  //     vendorCopy[tempName] = e.target.value;
-  //     this.setState({ vendor: vendorCopy });
-  //   } else {
-  //     let tempName = e.target.name;
-  //     let stateCopy = JSON.parse(JSON.stringify(this.state.vendor));
-  //     stateCopy[tempName] = e.target.value;
-  //     this.setState(stateCopy);
-  //   }
-  // }
 
 
   render() {
