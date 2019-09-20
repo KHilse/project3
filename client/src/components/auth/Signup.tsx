@@ -3,9 +3,8 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 // import Axios from 'axios';
 // import { IUserModel } from '../../../../interfaces/modelInterfaces';
-import UserForm from "./UserForm";
-import Vendors from "./Vendors";
 import FacebookLogin from "../../FacebookLogin";
+import UserForm from "./UserForm";
 
 interface IUserCheck {
   user: (string | null | undefined);
@@ -46,14 +45,16 @@ class Signup extends React.Component<IUserCheck, IState> {
   checkFacebookLogin = () => {
     window.FB.getLoginStatus( (response) => {
       if (response.status === "connected") {
-        this.setState({
-            instagramAccessToken: response.authResponse.accessToken
-        });
+        const stateCopy = JSON.parse(JSON.stringify(this.state));
+        console.log(response)
+        stateCopy.instagramAccessToken = response.authResponse.accessToken;
+        this.setState(stateCopy);
       } else {
         window.FB.login( (loginResponse) => {
-          this.setState({
-            instagramAccessToken: loginResponse.authResponse.accessToken,
-          });
+          const stateCopy = JSON.parse(JSON.stringify(this.state));
+          console.log(response)
+          stateCopy.instagramAccessToken = response.authResponse.accessToken;
+          this.setState(stateCopy);
         });
       }
     });
@@ -70,11 +71,13 @@ class Signup extends React.Component<IUserCheck, IState> {
       method: "POST",
     })
       .then( (response) => response.json())
-      .then( (result) => {
+      .then( (response) => {
+        localStorage.setItem("mernToken", response.token);
         this.props.refreshUser();
         this.render();
       })
       .catch( (err) => {
+        console.log(err);
         console.log("ERROR");
       });
   }
@@ -87,7 +90,7 @@ class Signup extends React.Component<IUserCheck, IState> {
       this.setState({ isVendor: !this.state.isVendor });
     } else {
       if (Object.keys(this.state).includes(key)) {
-        let stateCopy = JSON.parse(JSON.stringify(this.state));
+        const stateCopy = JSON.parse(JSON.stringify(this.state));
         stateCopy[key] = value;
         this.setState(stateCopy);
       }

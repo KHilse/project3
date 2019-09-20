@@ -1,64 +1,74 @@
 import dotenv from "dotenv";
-import jwt from "jsonwebtoken";
 import express, { Router } from "express";
+import jwt from "jsonwebtoken";
 let db = require("../../models");
 
 const router = express.Router();
-dotenv.config()
+dotenv.config();
 
-router.post("/login", (req,res)=>{
+router.post("/login", (req, res) => {
   db.User.findOne({email: req.body.email})
-  .then(user =>{
-    if(!user || !user.password){
-      return res.status(404).send({ message: "User not found"})
+  .then((user) => {
+    if (!user || !user.password) {
+      return res.status(404).send({ message: "User not found"});
     }
-    if( !user.isAuthenticated(req.body.password)){
-      return res.status(406).send({ message: "Not Acceptable: Invalid Credentials!"})
+    if ( !user.isAuthenticated(req.body.password)) {
+      return res.status(406).send({ message: "Not Acceptable: Invalid Credentials!"});
     }
-    let token = jwt.sign(user.toJSON(), "thisIsASecret",{
-      expiresIn: 60 * 60 * 8
-    })
-    res.send({ token })
+    const token = jwt.sign(user.toJSON(), "thisIsASecret", {
+      expiresIn: 60 * 60 * 8,
+    });
+    res.send({ token });
   })
-  .catch(err =>{
-    console.log("Error in POST /auth/login", err)
-    res.status(503).send({ message: "Something wrong, prob DB related. Or you made a type. One of those."})
-  })
-})
+  .catch((err) => {
+    console.log("Error in POST /auth/login", err);
+    res.status(503).send({ message: "Something wrong, prob DB related. Or you made a type. One of those."});
+  });
+});
 
-router.post("/signup", (req,res)=> {
-  console.log("HELLO")
+router.post("/signup", (req, res) => {
+  console.log("HELLO");
+  console.log(req.body);
   db.User.findOne({
-    email: req.body.email
+    email: req.body.email,
   })
-  .then(user =>{
-    if(user) {
-      return res.status(409).send({ message: "Email address in use "})
+  .then((user) => {
+    if (user) {
+      return res.status(409).send({ message: "Email address in use "});
     }
-    db.User.create(req.body)
-    .then(newUser =>{
-      let token = jwt.sign(newUser.toJSON(), "thisIsASecret", {
-        expiresIn: 60 * 60 * 8
-      })
-      res.send({ token })
+    db.User.create({
+      email: req.body.email,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      password: req.body.password,
+      vendor: {
+        instagramAccessToken: req.body.instagramAccessToken,
+      },
     })
-    .catch(err => {
-      console.log("Error when creating new user", err)
-      res.status(500).send({ message: "Error creating user"})
+    .then((newUser) => {
+      console.log("Making it here");
+      const token = jwt.sign(newUser.toJSON(), "thisIsASecret", {
+        expiresIn: 60 * 60 * 8,
+      });
+      res.send({ token });
     })
+    .catch((err) => {
+      console.log("Error when creating new user", err);
+      res.status(500).send({ message: "Error creating user"});
+    });
   })
-  .catch(err =>{
-    console.log("Error in POST /auth/signup", err)
-    res.status(503).send({ message: "Something wrong, prob DB related. Or you made a typo. One of those." })
-  })
-})
+  .catch((err) => {
+    console.log("Error in POST /auth/signup", err);
+    res.status(503).send({ message: "Something wrong, prob DB related. Or you made a typo. One of those." });
+  });
+});
 
-router.get("/current/user", (req: any,res)=>{
-  console.log(req.user)
-  if(!req.user || !req.user._id) {
+router.get("/current/user", (req: any, res) => {
+  console.log(req.user);
+  if (!req.user || !req.user._id) {
     return res.status(417).send({ message: "Check configuration" });
   }
-  res.send({ user: req.user })
-})
+  res.send({ user: req.user });
+});
 
-export default router
+export default router;
