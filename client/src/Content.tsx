@@ -6,23 +6,20 @@ import Signup from "./components/auth/Signup";
 import Art from "./components/pages/Art";
 import Artist from "./components/pages/Artist";
 import Browse from "./components/pages/Browse";
-import AuthBox from "./components/auth/AuthBox";
-import CallToAction from './components/pages/CallToAction'
+import Home from "./components/pages/Home";
 //import Logout from "./components/auth/Logout"
 //import FacebookLogin from "./FacebookLogin"
 import Profile from "./components/pages/Profile";
 
 import { ContentInt } from "./react-app-env";
+import AuthBox from "./components/auth/AuthBox";
 
 class Content extends Component<ContentInt> {
   render() {
     return (
       <div>
         <Route exact path="/" render={ () =>
-          <CallToAction />
-        } />
-        <Route path="/signup" render={ () =>
-          <AuthBox user={this.props.user} refreshUser={this.props.refreshUser} />
+          <Home user={this.props.user} refreshUser={this.props.refreshUser} />
         } />
         <Route path="/profile" render={() =>
           <Profile current={this.props.current}
@@ -40,8 +37,8 @@ class Content extends Component<ContentInt> {
         <Route path="/browse/:artistId" render={ (path) =>
           <Artist id={path.match.params.artistId} user={this.props.user} refreshUser={this.props.refreshUser}/>
         } />
-        <Route path="/login" render={ () =>
-          <Login refreshUser={this.props.refreshUser}/>
+        <Route path="/signup" render={ () =>
+          <AuthBox user={this.props.user} refreshUser={this.props.refreshUser}/>
         } />
       </div>
     );

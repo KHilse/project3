@@ -1,6 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+const logoutUser = (e) => {
+  console.log("Token removed")
+  localStorage.removeItem('mernToken');
+};
 
 const Nav = props => {
   let links;
@@ -9,12 +13,22 @@ const Nav = props => {
     links = (
       <span>
         <Link to='/profile'>Profile</Link>
+<<<<<<< HEAD
         <Link to='/logout'>Logout</Link>
         <Link to='/profile'>Profile</Link>
       </span>
     )
   } else {
    links = <Link to='/signup'>Login/Signup</Link>
+=======
+        <a href="/" onClick={logoutUser}>Logout</a>
+      </span>
+    )
+  } else {
+   links = (
+     <Link to="/signup">Sign Up  |  Login</Link>
+   )
+>>>>>>> 8373344c46ef45e1e1e50e8147e7f192f96b49c8
   }
 
 
