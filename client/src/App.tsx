@@ -27,7 +27,7 @@ class App extends Component<AppProps, {}> {
     this.getArtworks()
   }
 
-  logoutUser = (e) => {
+  logoutUser = (e: any) => {
     e.preventDefault();
     localStorage.removeItem('mernToken');
   }
@@ -43,6 +43,7 @@ class App extends Component<AppProps, {}> {
       })
       .then(response => {
         this.setState({ user: response.data.user })
+        this.setState({ current: response.data.user })
       })
       .catch(err => {
         console.log('Error with token', err)
@@ -54,8 +55,9 @@ class App extends Component<AppProps, {}> {
   }
 
   getArtworks = () => {
-    axios.get('https://jsonplaceholder.typicode.com/photos?_start=12&_limit=12')
+    axios.get(SERVER_URL + "/v1/instagram/frontpage")
     .then(artworks => {
+      console.log(artworks)
       this.setState({artworks: artworks.data, current: {} })
     })
     .catch(err => {

@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import Login, { LoginInt } from './Login'
+import Login from './Login'
 import Signup from '../auth/Signup'
-import Test from './Test'
 import inkline from '../../theme/Mui'
 
 import { ThemeProvider } from '@material-ui/styles';

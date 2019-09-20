@@ -36,6 +36,7 @@ class Art extends Component<IPostContainerProps, IPostContainerState> {
   }
 
   componentDidMount() {
+    console.log(this.props.userId)
     axios.get(BASE_URL + "/v1/users" + this.props.userId)
     .then(user => {
       let isFavorite: boolean;
@@ -49,7 +50,7 @@ class Art extends Component<IPostContainerProps, IPostContainerState> {
         this.props.userId +
         "/" +
         this.props.postId)
-      .then((response) => {      
+      .then((response) => {
         this.setState({
           artistInstagram: "",
           artistName: "",
@@ -76,7 +77,7 @@ class Art extends Component<IPostContainerProps, IPostContainerState> {
         response.data.favoriteWorks.splice(response.data.favoriteWorks.indexOf(e.target.id), 1);
       }
       axios.put(BASE_URL + '/v1/users/' + this.props.userId, {
-        favoriteWorks: response.data.favoriteWorks 
+        favoriteWorks: response.data.favoriteWorks
       })
       .then(result => {
       })

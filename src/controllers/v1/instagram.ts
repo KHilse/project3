@@ -18,7 +18,7 @@ const getAppSecretProof = (token: string, appSecret: string): string => {
   return sha256.hmac(appSecret, token);
 };
 
-const makeApiCall = async (url: string, errorMessage: string, callback) => {
+const makeApiCall = async (url: string, errorMessage: string, callback: any) => {
   return  await axios.get(url)
   .then((response) => {
     return callback(response);
@@ -43,13 +43,13 @@ const getAllInstagramPosts = async (req: Request, res: Response) => {
       user.vendor.appSecretProof = getAppSecretProof(accessToken, process.env.APP_SECRET);
     }
     const mediaListURL = BASE_URL + user.vendor.instagramIdPage + "/media?access_token=" + accessToken;
-    postIdList = await makeApiCall(mediaListURL, "Error with getting media list", (response) => {
+    postIdList = await makeApiCall(mediaListURL, "Error with getting media list", (response: any) => {
       return response.data.data;
     });
     postPromises = postIdList.map(async (post) => {
       // tslint:disable-next-line: max-line-length
       const mediaDataURL = BASE_URL + post.id + "?fields=id,media_type,media_url,timestamp&access_token=" + accessToken + "&appsecret_proof=" + user.vendor.appSecretProof;
-      return makeApiCall(mediaDataURL, "Error getting Media data", (response) => response.data);
+      return makeApiCall(mediaDataURL, "Error getting Media data", (response: any) => response.data);
     });
   }
   const postsArray: any[] = [];

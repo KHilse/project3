@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import Test from './Test'
+import SERVER_URL from '../../const'
 //import { AppProps } from '../../react-app-env'
 
 export interface LoginInt {
-  user?: (string | null),
+  user?: ({} | null),
   email?: string,
   password?: string,
   refreshUser(),
@@ -29,10 +31,13 @@ class Login extends Component <LoginInt, {}> {
 
   submitLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    axios.post(`http://localhost:3001/v1/auth/login`, this.state)
+    axios.post(`${SERVER_URL}/v1/auth/login`, this.state)
     .then(response => {
       localStorage.setItem('mernToken', response.data.token)
       this.props.refreshUser()
+      return(response)
+    })
+    .then(response => {
       console.log(response)
     })
     .catch(err => {
@@ -45,22 +50,10 @@ class Login extends Component <LoginInt, {}> {
   }
 
   render() {
-    // let loginForm;
-    // if (this.props.user) {
-    //  loginForm= (
-    //   <form onSubmit={this.submitLogin}>
-    //     <input type="email" placeholder="email" onChange={this.handleChange} name="email" />
-    //     <input type="password" placeholder="password" onChange={this.handleChange} name="password" />
-    //     <input type='submit' value='submit' />
-    //   </form>
-    // )
-    // }
     return(
-      <div className="login">
+      <div>
         <form onSubmit={this.submitLogin}>
-          <input type="email" placeholder="email" onChange={this.handleChange} name="email" />
-          <input type="password" placeholder="password" onChange={this.handleChange} name="password" />
-          <input type='submit' value='submit' />
+        <Test refreshUser={this.props.refreshUser} user={this.props.user} handleChange={this.handleChange} />
         </form>
       </div>
     )
