@@ -73,8 +73,6 @@ class Profile extends Component<ContentInt, { current }> {
           <p>Address:</p>
           <p>{this.state.current.vendor.address.streetNumber} {this.state.current.vendor.address.street} {this.state.current.vendor.address.streetSuffix}<br />
           {this.state.current.vendor.address.state} {this.state.current.vendor.address.zipcode}, {this.state.current.vendor.address.country}</p>
-          <p>{this.state.current.vendor.phoneNumber}</p>
-          <p>{this.state.current.vendor.website}</p>
           <p>Pinned Instagram Posts</p>
           <img src={this.state.current.vendor.pinned[0]} alt="tattoo" />
         </div>
@@ -95,8 +93,11 @@ class Profile extends Component<ContentInt, { current }> {
           <Paper>
             <h1>My Profile</h1>
             <br />
-            <p>{this.state.current.firstname} {this.state.current.lastname}</p>
-            {this.renderVendor()}
+            <p><strong>{this.state.current.firstname} {this.state.current.lastname}</strong></p>
+            <p>{this.state.current.email}</p>
+            <p>{this.state.current.phoneNumber}</p>
+            <p>{this.state.current.website}</p>
+            <p>&nbsp;</p>
           </Paper>
         </Grid>
         <Grid item xs={9}>
