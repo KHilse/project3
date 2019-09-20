@@ -20,10 +20,10 @@ interface IAppState {
 class App extends Component<AppProps, IAppState> {
 
   state = {
-    artworks: [],
-    current: {},
     user: null,
-  };
+    artworks: [],
+    current: {}
+  }
 
   componentDidMount() {
     this.getUser();
@@ -57,9 +57,12 @@ class App extends Component<AppProps, IAppState> {
 
   getArtworks = () => {
     axios.get(SERVER_URL + "/v1/instagram/frontpage")
-    .then( (artworks) => {
-      console.log(artworks);
-      this.setState({artworks: artworks.data || [], current: {} });
+    .then(artworks => {
+      console.log(artworks)
+      this.setState({ artworks: artworks.data.message })
+    })
+    .catch(err => {
+      console.log('Err while grabbing artworks', err)
     })
     .catch( (err) => {
       console.log("Err while grabbing artworks", err);

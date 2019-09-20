@@ -1,9 +1,9 @@
-import { getThemeProps } from "@material-ui/styles";
+//import { getThemeProps } from "@material-ui/styles";
 import { mdiHeart, mdiHeartOutline } from "@mdi/js";
-import { appendFile } from "fs";
-import { userInfo } from "os";
+//import { appendFile } from "fs";
+//import { userInfo } from "os";
 import React from "react";
-import App from "../../App";
+//import App from "../../App";
 
 interface IPostProps {
   id: string;
@@ -16,7 +16,7 @@ interface IPostProps {
 const Post = (props: IPostProps) => {
   let media;
   if (props.mediaType === "IMAGE") {
-    media = <img src={props.mediaUrl} />;
+    media = <img src={props.mediaUrl} alt='' />;
 
   } else if (props.mediaType === "VIDEO") {
     media = <video>

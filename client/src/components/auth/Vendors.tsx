@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Vendors = (props) => {
-
+  console.log('props.newVendor', props.newVendor);
   const styles: any = useStyles();
   return(
     <div className="vendorContainer">

@@ -5,9 +5,6 @@ interface IFacebookLoginProps {
 }
 
 class FacebookLogin extends React.Component<IFacebookLoginProps, {}> {
-  constructor(props) {
-    super(props);
-  }
 
   handleClick = (e) => {
     e.preventDefault();

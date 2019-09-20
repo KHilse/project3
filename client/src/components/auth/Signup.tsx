@@ -5,7 +5,6 @@ import { Redirect } from "react-router-dom";
 // import { IUserModel } from '../../../../interfaces/modelInterfaces';
 import FacebookLogin from "../../FacebookLogin";
 import UserForm from "./UserForm";
-import Vendors from "./Vendors";
 
 interface IUserCheck {
   user: (string | null | undefined);
@@ -19,21 +18,10 @@ interface IState {
   password: string;
   passwordVerify: string;
   isVendor: boolean;
-  vendor: {
-    address?: {
-      city?: string;
-      streetNumber?: string;
-      street?: string;
-      streetSuffix?: string;
-      state?: string;
-      country?: string;
-      zipcode?: string;
-    };
-    instagramAccessToken?: string;
-    instagramIdPage?: string;
-    phoneNumber?: string;
-    website?: string;
-  };
+  instagramAccessToken?: string;
+  instagramIdPage?: string;
+  phoneNumber?: string;
+  website?: string;
 }
 
 class Signup extends React.Component<IUserCheck, IState> {
@@ -47,39 +35,24 @@ class Signup extends React.Component<IUserCheck, IState> {
       lastname: props.lastname || "",
       password: props.password || "",
       passwordVerify: props.passwordVerify || "",
-      vendor: {
-        address: {
-          city: "",
-          country: "",
-          state: "",
-          street: "",
-          streetNumber: "",
-          streetSuffix: "",
-          zipcode: "",
-        },
-        instagramAccessToken: "",
-        instagramIdPage: "",
-        phoneNumber: "",
-        website: "",
-      },
+      instagramAccessToken: props.instagramAccessToken || "",
+      instagramIdPage: props.instagramIdPage || "",
+      phoneNumber: props.phoneNumber || "",
+      website: props.website || "",
     };
   }
 
   checkFacebookLogin = () => {
     window.FB.getLoginStatus( (response) => {
       if (response.status === "connected") {
-        this.setState({
-          vendor: {
-            instagramAccessToken: response.authResponse.accessToken,
-          },
-        });
+        const stateCopy = JSON.parse(JSON.stringify(this.state));
+        stateCopy.instagramAccessToken = response.authResponse.accessToken;
+        this.setState(stateCopy);
       } else {
         window.FB.login( (loginResponse) => {
-          this.setState({
-            vendor: {
-              instagramAccessToken: loginResponse.authResponse.accessToken,
-            },
-          });
+          const stateCopy = JSON.parse(JSON.stringify(this.state));
+          stateCopy.instagramAccessToken = response.authResponse.accessToken;
+          this.setState(stateCopy);
         });
       }
     });
@@ -105,25 +78,18 @@ class Signup extends React.Component<IUserCheck, IState> {
       });
   }
 
-  storeInput = (e) => {
-    console.log(e.target.name, e.target.value, e.target.checked);
-    if (e.target.name === "isVendor") {
+  storeInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const key = e.currentTarget.name;
+    const value = e.currentTarget.value;
+    console.log(e.currentTarget.name, e.currentTarget.value, e.currentTarget.checked);
+    if (e.currentTarget.name === "isVendor") {
       this.setState({ isVendor: !this.state.isVendor });
-    } else if (e.target.name.startsWith("vendoraddress")) {
-      const tempName = e.target.name.slice("vendoraddress".length);
-      const vendorCopy = JSON.parse(JSON.stringify(this.state.vendor));
-      vendorCopy.address[tempName] = e.target.value;
-      this.setState({ vendor: vendorCopy });
-    } else if (e.target.name.startsWith("vendor")) {
-      const tempName = e.target.name.slice("vendor".length);
-      const vendorCopy = JSON.parse(JSON.stringify(this.state.vendor));
-      vendorCopy[tempName] = e.target.value;
-      this.setState({ vendor: vendorCopy });
     } else {
-      const tempName = e.target.name;
-      const stateCopy = JSON.parse(JSON.stringify(this.state.vendor));
-      stateCopy[tempName] = e.target.value;
-      this.setState(stateCopy);
+      if (Object.keys(this.state).includes(key)) {
+        const stateCopy = JSON.parse(JSON.stringify(this.state));
+        stateCopy[key] = value;
+        this.setState(stateCopy);
+      }
     }
   }
 
@@ -135,7 +101,7 @@ class Signup extends React.Component<IUserCheck, IState> {
     if (this.state.isVendor) {
       vendorFields = (
         <div>
-        <FacebookLogin checkFacebookLogin={this.checkFacebookLogin}/>
+          <FacebookLogin checkFacebookLogin={this.checkFacebookLogin}/>
         </div>
       );
     } else {
