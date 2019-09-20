@@ -3,6 +3,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 // import Axios from 'axios';
 // import { IUserModel } from '../../../../interfaces/modelInterfaces';
+import FacebookLogin from "../../FacebookLogin";
 import UserForm from "./UserForm";
 import Vendors from "./Vendors";
 
@@ -134,10 +135,7 @@ class Signup extends React.Component<IUserCheck, IState> {
     if (this.state.isVendor) {
       vendorFields = (
         <div>
-          <Vendors recordVendor={this.storeInput}
-                   newVendor={this.state.vendor}
-                   checkFacebookLogin={this.checkFacebookLogin}
-          />
+        <FacebookLogin checkFacebookLogin={this.checkFacebookLogin}/>
         </div>
       );
     } else {
