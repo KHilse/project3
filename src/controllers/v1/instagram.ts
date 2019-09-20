@@ -95,7 +95,7 @@ const getFrontpageInstagramPosts = async (req: Request, res: Response) => {
   const users: IUserModel[] = await User.find({ vendor: { $exists: true }});
   const postIdList = await Promise.all(users.map(async (user) => {
     if (user) {
-      const accessToken = user.vendor.decryptToken(user.vendor.instagramAccessToken);
+      const accessToken = user.vendor.instagramAccessToken;
       if (process.env.APP_SECRET) {
         user.vendor.appSecretProof = getAppSecretProof(accessToken, process.env.APP_SECRET);
       }
@@ -136,6 +136,5 @@ const getFrontpageInstagramPosts = async (req: Request, res: Response) => {
 router.get("/user/:userId", getAllInstagramPosts);
 router.get("/user/:userId/:id", getOneInstagramPost);
 router.get("/frontpage", getFrontpageInstagramPosts);
-
 
 export default router;

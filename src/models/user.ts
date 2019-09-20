@@ -37,7 +37,7 @@ export const UserSchema = new Schema({
   vendor: VendorSchema,
 });
 
-UserSchema.pre<IUserModel>("save", function (next) {
+UserSchema.pre<IUserModel>("save", function(next) {
   this.password = bcrypt.hashSync(this.password, 12);
   next();
 });
