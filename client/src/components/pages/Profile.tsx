@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-<<<<<<< HEAD
 import  { IUser, IVendor }  from '../../../../interfaces/modelInterfaces';
-=======
->>>>>>> eb2a2ac6f2ebec4c2eed81cd62b3856702273d07
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import { ContentInt } from '../../react-app-env';
 import {Paper, Grid} from '@material-ui/core';

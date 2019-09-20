@@ -155,12 +155,8 @@ class Signup extends React.Component<IUserCheck, IState> {
 
     return (
       <form onSubmit={this.handleSignup}>
-<<<<<<< HEAD
         <h1>Sign Up</h1>
         <UserForm recordUser={this.storeInput} newUser={this.state}/>
-=======
-        <UserForm recordUser={this.storeInput} newUser={this.state} />
->>>>>>> d288d73663048ee50e21d92c0e60458cd5eecdf9
         <br />
         <div className="isVendor">
           <h1 className="Artist" >Are you an artist? <input className="ArtistCheck" name="isVendor" type="checkbox" onChange={this.storeInput} checked={this.state.isVendor} /></h1>
