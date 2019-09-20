@@ -5,7 +5,7 @@ const Home = props => {
 
     return (
       <div className="home">
-      <AuthBox user={props.user} refreshUser={props.refreshUser} />
+        Home
       </div>
     )
 
