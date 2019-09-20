@@ -1,20 +1,10 @@
-import React, { Component } from 'react'
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import { ContentInt } from '../../react-app-env';
-import {Paper, Grid} from '@material-ui/core';
-import Favorites from './Favorites'
-
-
-
+import {Grid, Paper} from "@material-ui/core";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import React, { Component } from "react";
+import { ContentInt } from "../../react-app-env";
+import Favorites from "./Favorites";
 
 class Profile extends Component<ContentInt, { current }> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      current: this.props.current,
-    }
-  }
  useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -22,54 +12,60 @@ class Profile extends Component<ContentInt, { current }> {
     },
   }),
 );
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      current: this.props.current,
+    };
+  }
 
   componentDidMount() {
     console.log("CURRENT", this.state.current);
     if (!this.state.current.email) {
       this.setState({
         current: {
-          firstname: 'Joe',
-          lastname: 'Blow',
-          email: 'abc@def.com',
-          favorites: ['http://placekitten.com/100/100', 'http://placekitten.com/150/100'],
+          firstname: "Joe",
+          lastname: "Blow",
+          email: "abc@def.com",
+          favorites: ["http://placekitten.com/100/100", "http://placekitten.com/150/100"],
           vendor: {
             address: {
-              streetNumber: '123',
-              street: 'Main St',
-              streetSuffix: 'NW',
-              state: 'WA',
-              country: 'USA',
-              zipcode: '98133'
+              streetNumber: "123",
+              street: "Main St",
+              streetSuffix: "NW",
+              state: "WA",
+              country: "USA",
+              zipcode: "98133",
             },
-            phoneNumber: '(205) 555-1212',
-            website: 'http://mysite.com',
-            pinned: ['http://placekitten.com/50/50']
-          }
-        }
-      })
+            phoneNumber: "(205) 555-1212",
+            website: "http://mysite.com",
+            pinned: ["http://placekitten.com/50/50"],
+          },
+        },
+      });
     }
   }
 
-  renderFavorites() : JSX.Element {
+  renderFavorites(): JSX.Element {
     console.log("FAVE:", this.state.current.favorites);
     if (this.state.current.favorites) {
         return (
           <div>
             <p>Favorites</p>
-            {this.state.current.favorites.map((favorite: string, i : number) => {
-              return <img key={i} src={favorite} />
+            {this.state.current.favorites.map((favorite: string, i: number) => {
+              return <img key={i} src={favorite} />;
               })
             }
           </div>
-        )
+        );
       } else {
-        return <div><p>No Favorites!</p></div>
+        return <div><p>No Favorites!</p></div>;
       }
 
   }
 
-  renderVendor() : JSX.Element {
+  renderVendor(): JSX.Element {
     if (this.state.current.vendor) {
       return (
         <div>
@@ -82,12 +78,12 @@ class Profile extends Component<ContentInt, { current }> {
           <p>Pinned Instagram Posts</p>
           <img src={this.state.current.vendor.pinned[0]} alt="tattoo" />
         </div>
-      )
+      );
     } else {
       return (
         <div>
         </div>
-      )
+      );
     }
   }
 
@@ -111,8 +107,8 @@ class Profile extends Component<ContentInt, { current }> {
         </Grid>
       </Grid>
       </div>
-    )
+    );
   }
 }
 
-export default Profile
+export default Profile;

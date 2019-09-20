@@ -1,14 +1,14 @@
-import React from 'react';
-import AuthBox from '../auth/AuthBox'
+import React from "react";
+import AuthBox from "../auth/AuthBox";
 
-const Home = props => {
+const Home = (props) => {
 
     return (
       <div className="home">
         Home
       </div>
-    )
+    );
 
-}
+};
 
-export default Home
+export default Home;

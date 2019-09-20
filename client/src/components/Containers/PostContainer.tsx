@@ -37,13 +37,13 @@ class PostContainer extends Component<IPostContainerProps, IPostContainerState> 
 
   public componentDidMount() {
     axios.get(BASE_URL + "/v1/users" + this.props.userId)
-    .then(user => {
-      let isFavorite: boolean;
+    .then((user) => {
+      const isFavorite: boolean = false;
       if (user.data.favoriteWorks.indexOf(this.props.postId) >= 0) {
         this.setState({ isFavorite: true } );
       } else {
         this.setState({ isFavorite: false } );
-      }     
+      }
       axios.get(BASE_URL +
         "/v1/instagram/user/" +
         this.props.userId +
@@ -54,26 +54,26 @@ class PostContainer extends Component<IPostContainerProps, IPostContainerState> 
       .catch((err) => {
       console.log(err, "Error getting Post");
       });
-    })
+    });
   }
 
   handlePostFavorite(e): void {
-    axios.get(BASE_URL + '/v1/users/' + this.props.userId)
-    .then(response => {
+    axios.get(BASE_URL + "/v1/users/" + this.props.userId)
+    .then((response) => {
       if (this.state.isFavorite) {
         response.data.favoriteWorks.push(e.target.id);
       } else {
         response.data.favoriteWorks.splice(response.data.favoriteWorks.indexOf(e.target.id), 1);
       }
-      axios.put(BASE_URL + '/v1/users/' + this.props.userId, {
-        favoriteWorks: response.data.favoriteWorks 
+      axios.put(BASE_URL + "/v1/users/" + this.props.userId, {
+        favoriteWorks: response.data.favoriteWorks,
       })
-      .then(result => {
+      .then((result) => {
       })
-      .catch(err => {
-        console.log('ERROR updating favorites', err);
-      })
-    })
+      .catch((err) => {
+        console.log("ERROR updating favorites", err);
+      });
+    });
   }
 
   public render() {

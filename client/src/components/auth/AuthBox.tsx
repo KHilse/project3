@@ -1,25 +1,24 @@
-import React, { Component } from 'react';
+import React from "react";
 
-import Login, { LoginInt } from './Login'
-import Signup from '../auth/Signup'
-import Test from './Test'
-import inkline from '../../theme/Mui'
+import inkline from "../../theme/Mui";
+import Signup from "../auth/Signup";
+import Login from "./Login";
 
-import { ThemeProvider } from '@material-ui/styles';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import AppBar from "@material-ui/core/AppBar";
+import Box from "@material-ui/core/Box";
+import { makeStyles, Theme } from "@material-ui/core/styles";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
+import Typography from "@material-ui/core/Typography";
+import { ThemeProvider } from "@material-ui/styles";
 
-interface TabPanelProps {
+interface ITabPanelProps {
   children?: React.ReactNode;
   index: any;
   value: any;
 }
 
-function TabPanel(props: TabPanelProps) {
+function TabPanel(props: ITabPanelProps) {
   const { children, value, index, ...other } = props;
 
   return (
@@ -38,28 +37,27 @@ function TabPanel(props: TabPanelProps) {
 
 function a11yProps(index: any) {
   return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+    "id": `simple-tab-${index}`,
   };
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     width: 800,
-  }
+  },
 }));
 
-
-const AuthBox = props => {
+const AuthBox = (props) => {
   const classes = useStyles();
-    const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(0);
 
-    function handleChange(event: React.ChangeEvent<{}>, newValue: number) {
+  function handleChange(event: React.ChangeEvent<{}>, newValue: number) {
       setValue(newValue);
     }
 
-    return (
-      <div className="tabs">
+  return (
+      <div className="tabs home">
         <div className={classes.root}>
         <ThemeProvider theme={inkline}>
           <AppBar position="static" className="AppBar">
@@ -78,6 +76,6 @@ const AuthBox = props => {
           </div>
        </div>
     );
-}
+};
 
-export default AuthBox
+export default AuthBox;

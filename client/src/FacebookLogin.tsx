@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 interface IFacebookLoginProps {
   checkFacebookLogin();
 }
 
 class FacebookLogin extends React.Component<IFacebookLoginProps, {}> {
-  constructor(props){
+  constructor(props) {
     super(props);
   }
 

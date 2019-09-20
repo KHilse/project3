@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
 
 class Header extends Component {
   render() {
@@ -8,7 +7,7 @@ class Header extends Component {
       <header className="App-Header">
         Header
       </header>
-    )
+    );
   }
 }
 

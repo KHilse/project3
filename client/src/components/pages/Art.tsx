@@ -36,8 +36,9 @@ class Art extends Component<IPostContainerProps, IPostContainerState> {
   }
 
   componentDidMount() {
+    console.log(this.props.userId);
     axios.get(BASE_URL + "/v1/users" + this.props.userId)
-    .then(user => {
+    .then((user) => {
       let isFavorite: boolean;
       if (user.data.favoriteWorks.indexOf(this.props.postId) >= 0) {
         isFavorite = true;
@@ -49,13 +50,13 @@ class Art extends Component<IPostContainerProps, IPostContainerState> {
         this.props.userId +
         "/" +
         this.props.postId)
-      .then((response) => {      
+      .then((response) => {
         this.setState({
           artistInstagram: "",
           artistName: "",
           caption: "",
           id: response.data.id,
-          isFavorite: isFavorite,
+          isFavorite,
           mediaType: response.data.media_type,
           mediaUrl: response.data.media_url,
           timestamp: response.data.timestamp,
@@ -64,26 +65,26 @@ class Art extends Component<IPostContainerProps, IPostContainerState> {
       .catch((err) => {
       console.log(err, "Error getting Post");
       });
-    })
+    });
   }
 
   handlePostFavorite(e): void {
-    axios.get(BASE_URL + '/v1/users/' + this.props.userId)
-    .then(response => {
+    axios.get(BASE_URL + "/v1/users/" + this.props.userId)
+    .then((response) => {
       if (this.state.isFavorite) {
         response.data.favoriteWorks.push(e.target.id);
       } else {
         response.data.favoriteWorks.splice(response.data.favoriteWorks.indexOf(e.target.id), 1);
       }
-      axios.put(BASE_URL + '/v1/users/' + this.props.userId, {
-        favoriteWorks: response.data.favoriteWorks 
+      axios.put(BASE_URL + "/v1/users/" + this.props.userId, {
+        favoriteWorks: response.data.favoriteWorks,
       })
-      .then(result => {
+      .then((result) => {
       })
-      .catch(err => {
-        console.log('ERROR updating favorites', err);
-      })
-    })
+      .catch((err) => {
+        console.log("ERROR updating favorites", err);
+      });
+    });
   }
 
   render() {

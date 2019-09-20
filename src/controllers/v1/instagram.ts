@@ -8,7 +8,6 @@ const router: Router = express.Router();
 dotenv.config();
 
 const BASE_URL = "https://graph.facebook.com/v4.0/";
-const accessToken = "EAAHEmPLN9ZAYBAOcRwkjt9gZCELQBqVimYmqhasrBbE4Tm4WFeVIZAZABdU1aZABJdmNyuJ9iyGrMopdDeCZCNlaUjbUUqXYV7bVUi4szAAmlqzbZAMlokBNu9OtW8nwqm9yHnsE3D2baGf6MfGPR2joemGjMLp2ZAUBqWTdpX7Bbmq1zovZBTufM";
 
 const errorCatch = (err: AxiosError, message: string) => {
   console.log(message, err);
@@ -18,7 +17,7 @@ const getAppSecretProof = (token: string, appSecret: string): string => {
   return sha256.hmac(appSecret, token);
 };
 
-const makeApiCall = async (url: string, errorMessage: string, callback) => {
+const makeApiCall = async (url: string, errorMessage: string, callback: any) => {
   return  await axios.get(url)
   .then((response) => {
     return callback(response);
@@ -39,17 +38,21 @@ const getAllInstagramPosts = async (req: Request, res: Response) => {
       errorCatch(err, "Error getting User");
     });
   if (user) {
+    const accessToken = user.vendor.decryptToken(user.vendor.instagramAccessToken);
     if (process.env.APP_SECRET) {
       user.vendor.appSecretProof = getAppSecretProof(accessToken, process.env.APP_SECRET);
     }
-    const mediaListURL = BASE_URL + user.vendor.instagramIdPage + "/media?access_token=" + accessToken;
+    const mediaListURL = BASE_URL +
+                         user.vendor.instagramIdPage +
+                         "/media?access_token=" +
+                         accessToken;
     postIdList = await makeApiCall(mediaListURL, "Error with getting media list", (response) => {
       return response.data.data;
     });
     postPromises = postIdList.map(async (post) => {
       // tslint:disable-next-line: max-line-length
       const mediaDataURL = BASE_URL + post.id + "?fields=id,media_type,media_url,timestamp&access_token=" + accessToken + "&appsecret_proof=" + user.vendor.appSecretProof;
-      return makeApiCall(mediaDataURL, "Error getting Media data", (response) => response.data);
+      return makeApiCall(mediaDataURL, "Error getting Media data", (response: any) => response.data);
     });
   }
   const postsArray: any[] = [];
@@ -77,34 +80,27 @@ const getOneInstagramPost = async (req: Request, res: Response) => {
     });
   let appSecretProof: string = "";
   if (user) {
+    const accessToken = user.vendor.decryptToken(user.vendor.instagramAccessToken);
     if (process.env.APP_SECRET) {
       appSecretProof = getAppSecretProof(accessToken, process.env.APP_SECRET);
     }
+    const url = BASE_URL + req.params.id + "?fields=id,media_type,media_url,timestamp&access_token=" + accessToken + "&appsecret_proof=" + appSecretProof;
+    makeApiCall(url, "Error gettting media metadata", (response) => {
+      res.send(response.data);
+    });
   }
-  axios.get(BASE_URL + req.params.id + "?fields=id,media_type,media_url,timestamp&access_token=" + accessToken + "&appsecret_proof=" + appSecretProof)
-  .then((response: AxiosResponse) => {
-    return response.data;
-  })
-  .then((data) => {
-    res.send(data);
-  })
-  .catch((err) => {
-    errorCatch(err, "Error gettting media metadata");
-  });
 };
 
 const getFrontpageInstagramPosts = async (req: Request, res: Response) => {
   const users: IUserModel[] = await User.find({ vendor: { $exists: true }});
   const postIdList = await Promise.all(users.map(async (user) => {
     if (user) {
-      if (accessToken) {
-        user.vendor.instagramAccessToken = accessToken;
-      }
+      const accessToken = user.vendor.decryptToken(user.vendor.instagramAccessToken);
       if (process.env.APP_SECRET) {
-        user.vendor.appSecretProof = getAppSecretProof(user.vendor.instagramAccessToken, process.env.APP_SECRET);
+        user.vendor.appSecretProof = getAppSecretProof(accessToken, process.env.APP_SECRET);
       }
       // tslint:disable-next-line: max-line-length
-      const mediaIdUrl = BASE_URL + user.vendor.instagramIdPage + "/media?access_token=" + user.vendor.instagramAccessToken;
+      const mediaIdUrl = BASE_URL + user.vendor.instagramIdPage + "/media?access_token=" + accessToken;
       const postId = await makeApiCall(mediaIdUrl, "Error getting Media id", (response) => {
         return response.data.data[0].id;
       });
