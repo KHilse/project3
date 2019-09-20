@@ -33,7 +33,7 @@ class App extends Component<AppProps, {}> {
     let token = localStorage.getItem('mernToken')
     //If theres a token, try to use it ot get the user info
     if (token) {
-      axios.get(`${SERVER_URL}/auth/current/user`, {
+      axios.get(`${SERVER_URL}/v1/auth/current/user`, {
         headers: {'Authorization': `Bearer ${token}` }
       })
       .then(response => {

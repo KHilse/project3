@@ -29,7 +29,7 @@ class Login extends Component <LoginInt, {}> {
 
   submitLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    axios.post(`http://localhost:3001/v1/users`, this.state)
+    axios.post(`http://localhost:3001/v1/auth/login`, this.state)
     .then(response => {
       localStorage.setItem('mernToken', response.data.token)
       this.props.refreshUser()

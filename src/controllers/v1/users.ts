@@ -44,6 +44,15 @@ router.get('/', (req, res) => {
 	})
 })
 
+router.get('/current', (req: any,res)=>{
+	console.log(req)
+  if(!req.user || !req.user._id) {
+    return res.status(417).send({ message: 'Check configuration' })
+  }
+  res.send({ user: req.user })
+})
+
+
 // GET /v1/users/:id
 router.get("/:id", (req, res) => {
 	db.User.findById(req.params.id)
@@ -76,29 +85,6 @@ router.post("/", (req, res) => {
 			res.status(503).send({ message: 'Database or server error' });
 		}
 	})
-})
-
-router.post("/login", (req, res) => {
-	db.User.findOne({ email: req.body.email })
-	.then(user => {
-		if ( !user || !user.password ) {
-			res.status(404).send({ message: "User not Found"})
-		}
-		if (!user.isAuthenticated(req.body.password)){
-			//Invalid Credentials wrong password
-			return res.status(406).send({ message: 'Not Acceptable: Invalid Credentials' })
-
-		}
-
-		let token = jwt.sign(user.toJSON(), process.env.JWT_SECRET, {
-      expiresIn: 60 * 60 * 3
-    })
-    res.send({ token })
-  })
-	.catch(err => {
-    console.log('Error in POST /auth/login', err)
-    res.status(503).send({ message: 'Something wrong, prob DB related or you made a typo' })
-  })
 })
 
 // PUT /v1/users/:id
