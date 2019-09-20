@@ -26,7 +26,7 @@ const Favorites = props => {
     if (props.savedPics) {
        tiles = props.savedPics.map((favorite: string, i : number) => {
         return (<GridListTile key={i} cols={1} className='tile'>
-          <img src={favorite} alt='Tattoo image' />
+          <img src={favorite} alt='Tattoo' />
         </GridListTile>)
       })
     }
