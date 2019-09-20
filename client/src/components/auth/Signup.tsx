@@ -46,11 +46,13 @@ class Signup extends React.Component<IUserCheck, IState> {
     window.FB.getLoginStatus( (response) => {
       if (response.status === "connected") {
         const stateCopy = JSON.parse(JSON.stringify(this.state));
+        console.log(response)
         stateCopy.instagramAccessToken = response.authResponse.accessToken;
         this.setState(stateCopy);
       } else {
         window.FB.login( (loginResponse) => {
           const stateCopy = JSON.parse(JSON.stringify(this.state));
+          console.log(response)
           stateCopy.instagramAccessToken = response.authResponse.accessToken;
           this.setState(stateCopy);
         });
@@ -69,11 +71,13 @@ class Signup extends React.Component<IUserCheck, IState> {
       method: "POST",
     })
       .then( (response) => response.json())
-      .then( (result) => {
+      .then( (response) => {
+        localStorage.setItem("mernToken", response.token);
         this.props.refreshUser();
         this.render();
       })
       .catch( (err) => {
+        console.log(err);
         console.log("ERROR");
       });
   }

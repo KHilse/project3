@@ -28,6 +28,7 @@ router.post("/login", (req, res) => {
 
 router.post("/signup", (req, res) => {
   console.log("HELLO");
+  console.log(req.body);
   db.User.findOne({
     email: req.body.email,
   })
@@ -35,8 +36,17 @@ router.post("/signup", (req, res) => {
     if (user) {
       return res.status(409).send({ message: "Email address in use "});
     }
-    db.User.create(req.body)
+    db.User.create({
+      email: req.body.email,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      password: req.body.password,
+      vendor: {
+        instagramAccessToken: req.body.instagramAccessToken,
+      },
+    })
     .then((newUser) => {
+      console.log("Making it here");
       const token = jwt.sign(newUser.toJSON(), "thisIsASecret", {
         expiresIn: 60 * 60 * 8,
       });
