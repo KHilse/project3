@@ -100,6 +100,7 @@ const getFrontpageInstagramPosts = async (req: Request, res: Response) => {
         user.vendor.appSecretProof = getAppSecretProof(accessToken, process.env.APP_SECRET);
       }
       // tslint:disable-next-line: max-line-length
+      console.log(user.vendor)
       const mediaIdUrl = BASE_URL + user.vendor.instagramIdPage + "/media?access_token=" + accessToken;
       const postId = await makeApiCall(mediaIdUrl, "Error getting Media id", (response) => {
         return response.data.data[0].id;
@@ -111,6 +112,7 @@ const getFrontpageInstagramPosts = async (req: Request, res: Response) => {
       };
     }
   }));
+  console.log(postIdList);
   const postPromises = postIdList.map( async (post) => {
     if (post) {
       const mediaDataURL = BASE_URL + post.postId + "?fields=id,media_type,media_url,timestamp&access_token=" +
