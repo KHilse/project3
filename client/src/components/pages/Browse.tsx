@@ -26,9 +26,15 @@ const Browse = (props: IBrowseProps) => {
   const classes = useStyles();
   const artworks =  props.artworks.map((work) => {
     return (
-      <GridListTile key={work.id} cols={1} className="tile">
-        <img src={work.url} alt={work.title} />
-      </GridListTile>
+      <div className={classes.root} id="browseContainer">
+        <GridList cellHeight={160} cols={3}>
+          {props.artworks.map((work) => (
+            <GridListTile cols={1} className="tile">
+              <img src={work} alt={work} />
+            </GridListTile>
+          ))}
+        </GridList>
+      </div>
     );
   });
 
