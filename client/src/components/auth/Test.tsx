@@ -29,7 +29,7 @@ const Test = props => {
   return(
     <div className="formTemp">
     <h1>Login</h1>
-      <form>
+      <form onSubmit={props.submitLogin}>
         <TextField
           id="filled-email-input"
           label="Email"

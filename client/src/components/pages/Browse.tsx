@@ -17,19 +17,28 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const Browse = props => {
-   const classes = useStyles();
+interface IBrowseProps {
+  artworks: any[];
+  refreshArtworks();
+}
+
+const Browse = (props: IBrowseProps) => {
+  const classes = useStyles();
+  const artworks =  props.artworks.map((work) => {
     return (
-      <div className={classes.root} id="browseContainer">
-        <GridList cellHeight={160} cols={3}>
-          {props.artworks.map(work => (
-            <GridListTile key={work.id} cols={1} className="tile">
-              <img src={work.url} alt={work.title} />
-            </GridListTile>
-          ))}
-        </GridList>
-      </div>
+      <GridListTile key={work.id} cols={1} className="tile">
+        <img src={work.url} alt={work.title} />
+      </GridListTile>
     );
+  });
+
+  return (
+    <div className={classes.root} id="browseContainer">
+      <GridList cellHeight={160} cols={3}>
+        {artworks}
+      </GridList>
+    </div>
+  );
 }
 
 export default Browse;

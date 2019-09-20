@@ -1,13 +1,13 @@
-import React from 'react'
-import { Redirect } from 'react-router-dom'
-//import Axios from 'axios';
-//import { IUserModel } from '../../../../interfaces/modelInterfaces';
-import Vendors from './Vendors'
-import UserForm from './UserForm'
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
+import React from "react";
+import { Redirect } from "react-router-dom";
+// import Axios from 'axios';
+// import { IUserModel } from '../../../../interfaces/modelInterfaces';
+import UserForm from "./UserForm";
+import Vendors from "./Vendors";
 
 interface IUserCheck {
-  user: (string | null | undefined),
+  user: (string | null | undefined);
   refreshUser();
 }
 
@@ -40,28 +40,28 @@ class Signup extends React.Component<IUserCheck, IState> {
     super(props);
 
     this.state = {
-      firstname: props.firstname || '',
-      lastname: props.lastname || '',
-      email: props.email || '',
-      password: props.password || '',
-      passwordVerify: props.passwordVerify || '',
+      email: props.email || "",
+      firstname: props.firstname || "",
       isVendor: props.isVendor || false,
+      lastname: props.lastname || "",
+      password: props.password || "",
+      passwordVerify: props.passwordVerify || "",
       vendor: {
         address: {
-          city: '',
-          streetNumber: '',
-          street: '',
-          streetSuffix: '',
-          state: '',
-          country: '',
-          zipcode: '',
+          city: "",
+          country: "",
+          state: "",
+          street: "",
+          streetNumber: "",
+          streetSuffix: "",
+          zipcode: "",
         },
-        instagramAccessToken: '',
-        instagramIdPage: '',
-        phoneNumber: '',
-        website: ''
-      }
-    }
+        instagramAccessToken: "",
+        instagramIdPage: "",
+        phoneNumber: "",
+        website: "",
+      },
+    };
   }
 
   checkFacebookLogin = () => {
@@ -81,52 +81,46 @@ class Signup extends React.Component<IUserCheck, IState> {
           });
         });
       }
-      console.log("Made it here");
     });
   }
 
   handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-
-    let newUser: {} = this.state;
-
-    console.log("NEWUSER:", newUser)
-    fetch('http://localhost:3001/v1/auth/signup', {
-      method: 'POST',
+    const newUser: {} = this.state;
+    fetch("http://localhost:3001/v1/auth/signup", {
       body: JSON.stringify(newUser),
       headers: {
-        'Content-Type': 'application/json'
-      }
+        "Content-Type": "application/json",
+      },
+      method: "POST",
     })
-      .then(response => response.json())
-      .then(result => {
-        console.log('Signup success!', result);
-        this.props.refreshUser()
+      .then( (response) => response.json())
+      .then( (result) => {
+        this.props.refreshUser();
         this.render();
       })
-      .catch(err => {
-        console.log("ERROR")
-      })
+      .catch( (err) => {
+        console.log("ERROR");
+      });
   }
 
-  storeInput = e => {
+  storeInput = (e) => {
     console.log(e.target.name, e.target.value, e.target.checked);
-    if (e.target.name === 'isVendor') {
-      this.setState({ isVendor: !this.state.isVendor })
-    } else if (e.target.name.startsWith('vendoraddress')) {
-      let tempName = e.target.name.slice('vendoraddress'.length);
-      let vendorCopy = JSON.parse(JSON.stringify(this.state.vendor));
+    if (e.target.name === "isVendor") {
+      this.setState({ isVendor: !this.state.isVendor });
+    } else if (e.target.name.startsWith("vendoraddress")) {
+      const tempName = e.target.name.slice("vendoraddress".length);
+      const vendorCopy = JSON.parse(JSON.stringify(this.state.vendor));
       vendorCopy.address[tempName] = e.target.value;
       this.setState({ vendor: vendorCopy });
-    } else if (e.target.name.startsWith('vendor')) {
-      let tempName = e.target.name.slice('vendor'.length);
-      let vendorCopy = JSON.parse(JSON.stringify(this.state.vendor));
+    } else if (e.target.name.startsWith("vendor")) {
+      const tempName = e.target.name.slice("vendor".length);
+      const vendorCopy = JSON.parse(JSON.stringify(this.state.vendor));
       vendorCopy[tempName] = e.target.value;
       this.setState({ vendor: vendorCopy });
     } else {
-      let tempName = e.target.name;
-      let stateCopy = JSON.parse(JSON.stringify(this.state.vendor));
+      const tempName = e.target.name;
+      const stateCopy = JSON.parse(JSON.stringify(this.state.vendor));
       stateCopy[tempName] = e.target.value;
       this.setState(stateCopy);
     }
@@ -134,20 +128,21 @@ class Signup extends React.Component<IUserCheck, IState> {
 
   render() {
     let vendorFields;
-    console.log('this.props.user', this.props.user);
     if (this.props.user) {
-      return (<Redirect to='/browse' />)
+      return (<Redirect to="/browse" />);
     }
     if (this.state.isVendor) {
       vendorFields = (
         <div>
-          <Vendors recordVendor={this.storeInput} newVendor={this.state.vendor} checkFacebookLogin={this.checkFacebookLogin}/>
+          <Vendors recordVendor={this.storeInput}
+                   newVendor={this.state.vendor}
+                   checkFacebookLogin={this.checkFacebookLogin}
+          />
         </div>
-      )
+      );
     } else {
       vendorFields = (<div></div>);
     }
-
 
     return (
       <form onSubmit={this.handleSignup}>
@@ -155,8 +150,12 @@ class Signup extends React.Component<IUserCheck, IState> {
         <UserForm recordUser={this.storeInput} newUser={this.state}/>
         <br />
         <div className="isVendor">
-          <h1 className="Artist" >Are you an artist? <input className="ArtistCheck" name="isVendor" type="checkbox" onChange={this.storeInput} checked={this.state.isVendor} /></h1>
-
+          <h1 className="Artist" >Are you an artist? <input className="ArtistCheck"
+                                                            name="isVendor"
+                                                            type="checkbox"
+                                                            onChange={this.storeInput}
+                                                            checked={this.state.isVendor} />
+          </h1>
           <br />
         </div>
         {vendorFields}
@@ -164,7 +163,7 @@ class Signup extends React.Component<IUserCheck, IState> {
           Submit
         </Button>
       </form>
-    )
+    );
   }
 }
 
