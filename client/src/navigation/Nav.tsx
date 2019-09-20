@@ -26,7 +26,7 @@ const Nav = props => {
   return (
     <div className="navBar">
         <div className="homeNav">
-          <Link to='/'>Home</Link>
+          <Link to='/'>Inkline</Link>
         </div>
         <div className="otherNav">
           <Link to='/browse'>Artworks</Link>

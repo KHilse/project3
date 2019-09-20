@@ -38,18 +38,21 @@ const Test = props => {
           name="email"
           autoComplete="email"
           margin="normal"
+          onChange={props.handleChange}
         />
         <br />
         <TextField
           id="filled-password-input"
           label="Password"
+          name="password"
           className={styles.textField}
           type="password"
           margin="normal"
+          onChange={props.handleChange}
         />
         <br />
         <div className="subButton">
-          <Button variant="contained" color="secondary" >
+          <Button variant="contained" color="secondary" type="submit">
           Submit
           </Button>
         </div>

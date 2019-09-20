@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import Login, { LoginInt } from './Login'
+import Login from './Login'
 import Signup from '../auth/Signup'
-import Test from './Test'
 import inkline from '../../theme/Mui'
 
 import { ThemeProvider } from '@material-ui/styles';
@@ -59,7 +58,7 @@ const AuthBox = props => {
     }
 
     return (
-      <div className="tabs">
+      <div className="tabs home">
         <div className={classes.root}>
         <ThemeProvider theme={inkline}>
           <AppBar position="static" className="AppBar">

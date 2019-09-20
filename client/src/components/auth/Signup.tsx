@@ -110,7 +110,6 @@ class Signup extends React.Component<IUserCheck, IState> {
       })
   }
 
-
   storeInput = e => {
     console.log(e.target.name, e.target.value, e.target.checked);
     if (e.target.name === 'isVendor') {
@@ -152,7 +151,8 @@ class Signup extends React.Component<IUserCheck, IState> {
 
     return (
       <form onSubmit={this.handleSignup}>
-        <UserForm recordUser={this.storeInput} newUser={this.state} />
+        <h1>Sign Up</h1>
+        <UserForm recordUser={this.storeInput} newUser={this.state}/>
         <br />
         <div className="isVendor">
           <h1 className="Artist" >Are you an artist? <input className="ArtistCheck" name="isVendor" type="checkbox" onChange={this.storeInput} checked={this.state.isVendor} /></h1>
