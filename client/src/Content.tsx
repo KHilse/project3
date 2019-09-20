@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 
 import AuthBox from "./components/auth/AuthBox";
 import Login from "./components/auth/Login";
-import Signup from "./components/auth/Signup";
+//import Signup from "./components/auth/Signup";
 import Art from "./components/pages/Art";
 import Artist from "./components/pages/Artist";
 import Browse from "./components/pages/Browse";

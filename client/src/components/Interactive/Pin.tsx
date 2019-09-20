@@ -3,7 +3,7 @@ import React from "react";
 const Pin = (props) => {
   let media;
   if (props.mediaType === "IMAGE") {
-    media = <img src={props.mediaUrl} />;
+    media = <img src={props.mediaUrl} alt='' />;
 
   } else if (props.mediaType === "VIDEO") {
     media = <video>

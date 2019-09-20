@@ -54,7 +54,7 @@ class Profile extends Component<ContentInt, { current }> {
           <div>
             <p>Favorites</p>
             {this.state.current.favorites.map((favorite: string, i: number) => {
-              return <img key={i} src={favorite} />;
+              return <img key={i} src={favorite} alt='' />;
               })
             }
           </div>

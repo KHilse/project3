@@ -3,7 +3,7 @@ import Paper from "@material-ui/core/Paper";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import React from "react";
-import { Redirect } from "react-router-dom";
+//import { Redirect } from "react-router-dom";
 import { Link, LinkProps } from "react-router-dom";
 import inkline from "../../theme/Mui";
 
