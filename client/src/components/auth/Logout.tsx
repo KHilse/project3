@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 class Logout extends Component {
   render() {
@@ -6,8 +6,8 @@ class Logout extends Component {
       <form>
         Logout
       </form>
-    )
+    );
   }
 }
 
-export default Logout
+export default Logout;

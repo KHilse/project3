@@ -1,22 +1,21 @@
+import axios from "axios";
 import React, { Component } from "react";
+import {BrowserRouter as Router} from "react-router-dom";
 import "./App.css";
-import axios from "axios"
-import {BrowserRouter as Router} from "react-router-dom"
 
-import Content from "./Content"
-import Footer from "./navigation/Footer"
-import Nav from "./navigation/Nav"
-//import Header from './navigation/Header'
-import SERVER_URL from "./const"
+// import Header from './navigation/Header'
+import SERVER_URL from "./const";
+import Content from "./Content";
+import Footer from "./navigation/Footer";
+import Nav from "./navigation/Nav";
 
-import { AppProps } from "./react-app-env"
+import { AppProps } from "./react-app-env";
 
 interface IAppState {
   user: any;
   artworks: any[];
   current: {};
 }
-
 
 class App extends Component<AppProps, IAppState> {
 
@@ -38,13 +37,13 @@ class App extends Component<AppProps, IAppState> {
 
   getUser = () => {
     // see if theres a token
-    let token = localStorage.getItem("mernToken");
+    const token = localStorage.getItem("mernToken");
     // If theres a token, try to use it ot get the user info
     if (token) {
       axios.get(`${SERVER_URL}/v1/auth/current/user`, {
-        headers: {"Authorization": `Bearer ${token}` },
+        headers: {Authorization: `Bearer ${token}` },
       })
-      .then(response => {
+      .then((response) => {
         this.setState({ user: response.data.user });
         this.setState({ current: response.data.user });
       })

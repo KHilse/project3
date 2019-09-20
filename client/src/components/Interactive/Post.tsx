@@ -1,16 +1,16 @@
-import React from "react";
-import { mdiHeart, mdiHeartOutline } from '@mdi/js';
-import { userInfo } from "os";
-import { appendFile } from "fs";
-import App from "../../App";
 import { getThemeProps } from "@material-ui/styles";
+import { mdiHeart, mdiHeartOutline } from "@mdi/js";
+import { appendFile } from "fs";
+import { userInfo } from "os";
+import React from "react";
+import App from "../../App";
 
 interface IPostProps {
   id: string;
-  handlePostFavorite(e: any): void;
   isFavorite: boolean;
   mediaType: string;
   mediaUrl: string;
+  handlePostFavorite(e: any): void;
 }
 
 const Post = (props: IPostProps) => {

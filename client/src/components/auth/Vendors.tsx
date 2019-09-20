@@ -1,14 +1,14 @@
-import React from 'react'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import React from "react";
 import FacebookLogin from "../../FacebookLogin";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      backgroundColor: '#F9F9F9'
+      display: "flex",
+      flexWrap: "wrap",
+      backgroundColor: "#F9F9F9",
     },
     textField: {
       marginLeft: theme.spacing(1),
@@ -23,9 +23,9 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const Vendors = props => {
+const Vendors = (props) => {
 
-  let styles : any = useStyles();
+  const styles: any = useStyles();
   return(
     <div className="vendorContainer">
       <form>
@@ -145,7 +145,7 @@ const Vendors = props => {
         <br />
       </form>
     </div>
-  )
-}
+  );
+};
 
 export default Vendors;

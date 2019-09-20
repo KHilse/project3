@@ -73,10 +73,10 @@ class Signup extends React.Component<IUserCheck, IState> {
           },
         });
       } else {
-        window.FB.login( (response) => {
+        window.FB.login( (loginResponse) => {
           this.setState({
             vendor: {
-              instagramAccessToken: response.authResponse.accessToken,
+              instagramAccessToken: loginResponse.authResponse.accessToken,
             },
           });
         });
