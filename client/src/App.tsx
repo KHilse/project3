@@ -18,7 +18,7 @@ class App extends Component<AppProps, {}> {
 
   state = {
     user: null,
-    artworks: {},
+    artworks: [],
     current: {}
   }
 

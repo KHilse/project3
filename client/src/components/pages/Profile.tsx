@@ -8,15 +8,9 @@ import Favorites from './Favorites'
 
 
 
-class Profile extends Component<ContentInt, { current }> {
-  constructor(props) {
-    super(props);
+const Profile =  (props) => {
 
-    this.state = {
-      current: this.props.current,
-    }
-  }
- useStyles = makeStyles((theme: Theme) =>
+ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: theme.spacing(3, 2),
@@ -24,41 +18,13 @@ class Profile extends Component<ContentInt, { current }> {
   }),
 );
 
-
-  componentDidMount() {
-    console.log("CURRENT", this.state.current);
-    if (!this.state.current.email) {
-      this.setState({
-        current: {
-          firstname: 'Joe',
-          lastname: 'Blow',
-          email: 'abc@def.com',
-          favorites: ['http://placekitten.com/100/100', 'http://placekitten.com/150/100'],
-          vendor: {
-            address: {
-              streetNumber: '123',
-              street: 'Main St',
-              streetSuffix: 'NW',
-              state: 'WA',
-              country: 'USA',
-              zipcode: '98133'
-            },
-            phoneNumber: '(205) 555-1212',
-            website: 'http://mysite.com',
-            pinned: ['http://placekitten.com/50/50']
-          }
-        }
-      })
-    }
-  }
-
-  renderFavorites() : JSX.Element {
-    console.log("FAVE:", this.state.current.favorites);
-    if (this.state.current.favorites) {
+  let renderFavorites= () : JSX.Element => {
+    console.log("FAVE:", props.current.favorites);
+    if (props.current.favorites) {
         return (
           <div>
             <p>Favorites</p>
-            {this.state.current.favorites.map((favorite: string, i : number) => {
+            {props.current.favorites.map((favorite: string, i : number) => {
               return <img key={i} src={favorite} />
               })
             }
@@ -70,18 +36,18 @@ class Profile extends Component<ContentInt, { current }> {
 
   }
 
-  renderVendor() : JSX.Element {
-    if (this.state.current.vendor) {
+  let renderVendor = function() : JSX.Element {
+    if (props.current.vendor) {
       return (
         <div>
           <h2>Vendor Info</h2>
           <p>Address:</p>
-          <p>{this.state.current.vendor.address.streetNumber} {this.state.current.vendor.address.street} {this.state.current.vendor.address.streetSuffix}<br />
-          {this.state.current.vendor.address.state} {this.state.current.vendor.address.zipcode}, {this.state.current.vendor.address.country}</p>
-          <p>{this.state.current.vendor.phoneNumber}</p>
-          <p>{this.state.current.vendor.website}</p>
+          <p>{props.current.vendor.address.streetNumber} {props.current.vendor.address.street} {props.current.vendor.address.streetSuffix}<br />
+          {props.current.vendor.address.props} {props.current.vendor.address.zipcode}, {props.current.vendor.address.country}</p>
+          <p>{props.current.vendor.phoneNumber}</p>
+          <p>{props.current.vendor.website}</p>
           <p>Pinned Instagram Posts</p>
-          <img src={this.state.current.vendor.pinned[0]} alt="tattoo" />
+          <img src={props.current.vendor.pinned[0]} alt="tattoo" />
         </div>
       )
     } else {
@@ -92,7 +58,6 @@ class Profile extends Component<ContentInt, { current }> {
     }
   }
 
-  render() {
     return (
       <div className="profile-box">
       <Grid container spacing={3}>
@@ -100,20 +65,19 @@ class Profile extends Component<ContentInt, { current }> {
           <Paper>
             <h1>My Profile</h1>
             <br />
-            <p>{this.state.current.firstname} {this.state.current.lastname}</p>
-            {this.renderVendor()}
+            <p>{props.current.firstname} {props.current.lastname}</p>
+            {renderVendor()}
           </Paper>
         </Grid>
         <Grid item xs={9}>
           <div>
-            <Favorites savedPics={this.state.current.favorites} />
+            <Favorites savedPics={props.current.favorites} />
           </div>
 
         </Grid>
       </Grid>
       </div>
     )
-  }
 }
 
 export default Profile

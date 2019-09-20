@@ -10,7 +10,7 @@ export interface ContentInt {
   refreshUser(),
   user?: (string | null),
   artworks?: any[],
-  current?: ({} | null),
+  current?: {},
 }
 
 export interface AppProps {

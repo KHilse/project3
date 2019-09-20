@@ -120,6 +120,7 @@ h1 {
 
 .profile-box {
   margin: 20px;
+  height: 80vh;
 }
 .ArtistCheck, .ArtistCheck :after {
   font-size: 40px;
