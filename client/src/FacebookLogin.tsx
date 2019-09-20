@@ -1,26 +1,24 @@
 import React from 'react';
 
-class FacebookLogin extends React.Component {
-  checkFacebookLogin = () => {
-    window.FB.getLoginStatus(response =>{
-      console.log(response)
-      if(response.status === 'connected'){
-        console.log(response)
-      }
-      else {
-        window.FB.login(function(response) {
-          console.log(response)
-        });
-      }
-    })
+interface IFacebookLoginProps {
+  checkFacebookLogin();
+}
+
+class FacebookLogin extends React.Component<IFacebookLoginProps, {}> {
+  constructor(props){
+    super(props);
+  }
+
+  handleClick = (e) => {
+    e.preventDefault();
+    this.props.checkFacebookLogin();
+
   }
 
   render() {
     return(
-      <div>
-        <button onClick={this.checkFacebookLogin}>Facebook</button>
-      </div>
-    )
+        <button onClick={this.handleClick}>Facebook</button>
+    );
   }
 }
 

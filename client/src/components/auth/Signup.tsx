@@ -19,19 +19,19 @@ interface IState {
   passwordVerify: string;
   isVendor: boolean;
   vendor: {
-    address: {
-      city: string;
-      streetNumber: string;
-      street: string;
-      streetSuffix: string;
-      state: string;
-      country: string;
-      zipcode: string;
+    address?: {
+      city?: string;
+      streetNumber?: string;
+      street?: string;
+      streetSuffix?: string;
+      state?: string;
+      country?: string;
+      zipcode?: string;
     };
-    instagramAccessToken: string;
-    instagramIdPage: string;
-    phoneNumber: string;
-    website: string;
+    instagramAccessToken?: string;
+    instagramIdPage?: string;
+    phoneNumber?: string;
+    website?: string;
   };
 }
 
@@ -45,8 +45,8 @@ class Signup extends React.Component<IUserCheck, IState> {
       email: props.email || '',
       password: props.password || '',
       passwordVerify: props.passwordVerify || '',
-      isVendor: props.isVendor || true,
-      vendor: props.vendor || {
+      isVendor: props.isVendor || false,
+      vendor: {
         address: {
           city: '',
           streetNumber: '',
@@ -64,6 +64,26 @@ class Signup extends React.Component<IUserCheck, IState> {
     }
   }
 
+  checkFacebookLogin = () => {
+    window.FB.getLoginStatus( (response) => {
+      if (response.status === "connected") {
+        this.setState({
+          vendor: {
+            instagramAccessToken: response.authResponse.accessToken,
+          },
+        });
+      } else {
+        window.FB.login( (response) => {
+          this.setState({
+            vendor: {
+              instagramAccessToken: response.authResponse.accessToken,
+            },
+          });
+        });
+      }
+      console.log("Made it here");
+    });
+  }
 
   handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -72,7 +92,7 @@ class Signup extends React.Component<IUserCheck, IState> {
     let newUser: {} = this.state;
 
     console.log("NEWUSER:", newUser)
-    fetch('http://localhost:3001/v1/users', {
+    fetch('http://localhost:3001/v1/auth/signup', {
       method: 'POST',
       body: JSON.stringify(newUser),
       headers: {
@@ -89,38 +109,43 @@ class Signup extends React.Component<IUserCheck, IState> {
       })
   }
 
-	storeInput = e => {
-      console.log(e.target.name, e.target.value, e.target.checked);
-      if (e.target.name === 'isVendor') {
-        this.setState({ isVendor: !this.state.isVendor })
-      } else if (e.target.name.startsWith('vendoraddress')) {
-        let tempName = e.target.name.slice('vendoraddress'.length);
-        let vendorCopy = JSON.parse(JSON.stringify(this.state.vendor));
-        vendorCopy.address[tempName] = e.target.value;
-        this.setState({ vendor: vendorCopy});
-      } else if (e.target.name.startsWith('vendor')) {
-        let tempName = e.target.name.slice('vendor'.length);
-        let vendorCopy = JSON.parse(JSON.stringify(this.state.vendor));
-        vendorCopy[tempName] = e.target.value;
-        this.setState({ vendor: vendorCopy});
-      } else {
-        let tempName = e.target.name;
-        let stateCopy = JSON.parse(JSON.stringify(this.state.vendor));
-        stateCopy[tempName] = e.target.value;
-        this.setState(stateCopy);
-      }
-	}
+
+  storeInput = e => {
+    console.log(e)
+  }
+
+  // storeInput = e => {
+  //   console.log(e.target.name, e.target.value, e.target.checked);
+  //   if (e.target.name === 'isVendor') {
+  //     this.setState({ isVendor: !this.state.isVendor })
+  //   } else if (e.target.name.startsWith('vendoraddress')) {
+  //     let tempName = e.target.name.slice('vendoraddress'.length);
+  //     let vendorCopy = JSON.parse(JSON.stringify(this.state.vendor));
+  //     vendorCopy.address[tempName] = e.target.value;
+  //     this.setState({ vendor: vendorCopy });
+  //   } else if (e.target.name.startsWith('vendor')) {
+  //     let tempName = e.target.name.slice('vendor'.length);
+  //     let vendorCopy = JSON.parse(JSON.stringify(this.state.vendor));
+  //     vendorCopy[tempName] = e.target.value;
+  //     this.setState({ vendor: vendorCopy });
+  //   } else {
+  //     let tempName = e.target.name;
+  //     let stateCopy = JSON.parse(JSON.stringify(this.state.vendor));
+  //     stateCopy[tempName] = e.target.value;
+  //     this.setState(stateCopy);
+  //   }
+  // }
 
 
   render() {
     let vendorFields;
     if (this.props.user) {
-      return(<Redirect to='/browse' />)
+      return (<Redirect to='/browse' />)
     }
     if (this.state.isVendor) {
       vendorFields = (
         <div>
-          <Vendors recordVendor={this.storeInput} newVendor={this.state.vendor} />
+          <Vendors recordVendor={this.storeInput} newVendor={this.state.vendor} checkFacebookLogin={this.checkFacebookLogin}/>
         </div>
       )
     } else {
@@ -130,7 +155,7 @@ class Signup extends React.Component<IUserCheck, IState> {
 
     return (
       <form onSubmit={this.handleSignup}>
-        <UserForm recordUser={this.storeInput} newUser={this.state}/>
+        <UserForm recordUser={this.storeInput} newUser={this.state} />
         <br />
         <div className="isVendor">
           <h1 className="Artist" >Are you an artist? <input className="ArtistCheck" name="isVendor" type="checkbox" onChange={this.storeInput} checked={this.state.isVendor} /></h1>

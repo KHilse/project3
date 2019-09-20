@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import FacebookLogin from "../../FacebookLogin";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,9 +29,7 @@ const Vendors = props => {
   return(
     <div className="vendorContainer">
       <form>
-        <Button variant="contained" color="primary" >
-          Facebook/Instagram
-        </Button>
+        <FacebookLogin checkFacebookLogin={props.checkFacebookLogin}/>
         <br />
         <TextField
           id="filled-text-input"
@@ -119,10 +117,10 @@ const Vendors = props => {
         <br />
         <TextField
           id="filled-text-input"
-          label="(425) 444-4444"
+          label="Phone Number"
           className={styles.textField}
           type="text"
-          name="vendoraddressphoneNumber"
+          name="vendorphoneNumber"
           autoComplete="text"
           margin="normal"
           onChange={props.recordVendor}
@@ -150,4 +148,4 @@ const Vendors = props => {
   )
 }
 
-export default Vendors
+export default Vendors;
