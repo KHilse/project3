@@ -21,7 +21,7 @@ class App extends Component<AppProps, IAppState> {
 
   state = {
     user: null,
-    artworks: {},
+    artworks: [],
     current: {}
   }
 
