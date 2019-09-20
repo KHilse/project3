@@ -27,6 +27,11 @@ class App extends Component<AppProps, {}> {
     this.getArtworks()
   }
 
+  logoutUser = (e) => {
+    e.preventDefault();
+    localStorage.removeItem('mernToken');
+  }
+
 
   getUser = () => {
     //see if theres a token
@@ -64,7 +69,7 @@ class App extends Component<AppProps, {}> {
     return (
       <Router>
         <div className="App">
-            <Nav user={this.state.user} />
+            <Nav user={this.state.user} handleLogout={this.logoutUser}/>
             <Content
             user={this.state.user}
             refreshArtworks={this.getArtworks}

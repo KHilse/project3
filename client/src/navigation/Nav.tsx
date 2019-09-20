@@ -1,6 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+const logoutUser = (e) => {
+  console.log("Token removed")
+  localStorage.removeItem('mernToken');
+};
 
 const Nav = props => {
   let links;
@@ -9,11 +13,13 @@ const Nav = props => {
     links = (
       <span>
         <Link to='/profile'>Profile</Link>
-        <Link to='/logout'>Logout</Link>
+        <a href="/" onClick={logoutUser}>Logout</a>
       </span>
     )
   } else {
-   links = ''
+   links = (
+     <Link to="/signup">Sign Up  |  Login</Link>
+   )
   }
 
 
@@ -24,7 +30,6 @@ const Nav = props => {
         </div>
         <div className="otherNav">
           <Link to='/browse'>Artworks</Link>
-          <Link to='/profile'>Profile</Link>
           {links}
         </div>
     </div>

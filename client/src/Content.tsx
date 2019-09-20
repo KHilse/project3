@@ -12,6 +12,7 @@ import Home from "./components/pages/Home";
 import Profile from "./components/pages/Profile";
 
 import { ContentInt } from "./react-app-env";
+import AuthBox from "./components/auth/AuthBox";
 
 class Content extends Component<ContentInt> {
   render() {
@@ -37,10 +38,7 @@ class Content extends Component<ContentInt> {
           <Artist id={path.match.params.artistId} user={this.props.user} refreshUser={this.props.refreshUser}/>
         } />
         <Route path="/signup" render={ () =>
-          <Signup user={this.props.user} refreshUser={this.props.refreshUser}/>
-        } />
-        <Route path="/login" render={ () =>
-          <Login refreshUser={this.props.refreshUser}/>
+          <AuthBox user={this.props.user} refreshUser={this.props.refreshUser}/>
         } />
       </div>
     );
