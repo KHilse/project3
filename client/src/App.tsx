@@ -18,7 +18,7 @@ class App extends Component<AppProps, {}> {
 
   state = {
     user: null,
-    artworks: [],
+    artworks: {},
     current: {}
   }
 
@@ -58,7 +58,7 @@ class App extends Component<AppProps, {}> {
     axios.get(SERVER_URL + "/v1/instagram/frontpage")
     .then(artworks => {
       console.log(artworks)
-      this.setState({artworks: artworks.data, current: {} })
+      this.setState({ artworks: artworks.data.message })
     })
     .catch(err => {
       console.log('Err while grabbing artworks', err)
