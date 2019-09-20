@@ -58,7 +58,7 @@ class App extends Component<AppProps, IAppState> {
   getArtworks = () => {
     axios.get(SERVER_URL + "/v1/instagram/frontpage")
     .then( (artworks) => {
-      console.log(artworks);
+      console.log('ARTWORKS:', artworks);
       this.setState({artworks: artworks.data || [], current: {} });
     })
     .catch( (err) => {
