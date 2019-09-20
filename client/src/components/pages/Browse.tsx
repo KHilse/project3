@@ -1,7 +1,8 @@
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import React from "react";
+import React from 'react';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridList from '@material-ui/core/GridList';
+import { Redirect } from 'react-router-dom'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,18 +18,12 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface IBrowseProps {
-  artworks: any[];
-  refreshArtworks();
-}
-
-const Browse = (props: IBrowseProps) => {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.root} id="browseContainer">
-      <GridList cellHeight={160} cols={3}>
-      {props.artworks.map((work, i) => (
+const Browse = props => {
+   const classes = useStyles();
+    return (
+      <div className={classes.root} id="browseContainer">
+        <GridList cellHeight={160} cols={3}>
+          {props.artworks.map((work, i) => (
             <GridListTile key={i} cols={1} className="tile">
               <img src={work} alt={work} />
             </GridListTile>
